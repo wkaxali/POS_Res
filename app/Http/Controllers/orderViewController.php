@@ -21,8 +21,9 @@ class orderViewController extends Controller
       return "Order Is Prepared";
     }
     
-   public function PlaceOrder($id){
-
+   public function PlaceOrder(Request $request){
+        $reqObj = $request->all();
+        $id = $reqObj['id'];
         $data=DB::table('tblsaleinvoice')
         ->where('InvoiceNumber', $id)
         ->first()->OrderStatus;
@@ -678,7 +679,9 @@ foreach ($invoiceDetails as $obj){
 
     }
 
-    public static function cancelOrder($id){
+    public static function cancelOrder(Request $request){
+        $array = $request->all();
+        $id = $array['id'];
         DB::table('tblsaleinvoice')
         ->where('InvoiceNumber', $id)
         ->update([

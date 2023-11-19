@@ -57,7 +57,7 @@ Route::get('/regAdmin/{data}',[userAccountController::class, 'regAdmin'] );
 
 Route::get('/loginUser/{data}',[userAccountController::class, 'loginUser'] );
 Route::get('/signUp/{data}',[userAccountController::class, 'signUp'] );
-Route::get('/cancelOrder/{id}',[orderViewController::class, 'cancelOrder']);
+Route::post('/cancelOrder',[orderViewController::class, 'cancelOrder']);
 
 Route::get('/getUsers',[userAccountController::class, 'getUsers'] );
 Route::get('/editUsers/{EU}',[userAccountController::class, 'editUsers'] );
@@ -100,7 +100,7 @@ Route::get('/mTree/{CID}',[tblCustomerController::class, 'customerTree'] );
 Route::get('/getAllOrders/{data}',[orderViewController::class, 'getAllOrders'] );
 Route::get('/getOrders',[orderViewController::class, 'getOrders'] );
 Route::get('/getOrdersOnly',[orderViewController::class, 'getOrdersRaw'] );
-Route::get('/PlaceOrder/{id}',[orderViewController::class, 'PlaceOrder'] );
+Route::post('/PlaceOrder',[orderViewController::class, 'PlaceOrder'] );
 Route::get('/getPreparingOrders',[orderViewController::class, 'getPreparingOrders'] );
 Route::get('/setPrepared/{id}',[orderViewController::class, 'setPreparedOrders'] );
 Route::get('/getDeliveryPendingOrders',[orderViewController::class, 'getDeliveryPendingOrders'] );

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- <meta http-equiv="refresh" content="10"> -->
     <title>Admin</title>
     <!-- CSS -->
@@ -552,9 +553,20 @@ function loadStatus() {
                 }
             };
             //alert("ljd");
-            xhttp.open("GET", "./PlaceOrder/"+id, true);
+            payload = JSON.stringify({'id':id})
 
-            xhttp.send();
+            // xhttp.open("GET", "./PlaceOrder/"+id, true);
+
+            // xhttp.send();
+
+            xhttp.open("POST", "./PlaceOrder/", true);
+            xhttp.setRequestHeader('Content-Type', 'application/json');
+
+            var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            
+            xhttp.send(payload);
+            console.log("hello")
         
      }
 
@@ -601,10 +613,17 @@ xhttp.send();
                 alert(this.responseText);
                 }
                 };
+                payload = JSON.stringify({'id':id})
+                // xhttp.open("GET", "./cancelOrder/"+id, true);
 
-                xhttp.open("GET", "./cancelOrder/"+id, true);
+                // xhttp.send();
+                xhttp.open("POST", "./cancelOrder/", true);
+                xhttp.setRequestHeader('Content-Type', 'application/json');
 
-                xhttp.send();
+                var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                
+                xhttp.send(payload);
                 }
                 }
     </script>
