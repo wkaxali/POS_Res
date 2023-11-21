@@ -12,7 +12,7 @@ class salesflowController extends Controller
     public function salesflowCheckout(Request $request,$CO)
 {
     $obj=json_decode($CO);
-    //dd($obj);
+    // dd($obj);
     $dateNow= Carbon::now()->toDateTimeString();
     $discounts=$obj[0];
     $coinsUsed=$obj[1];

@@ -46,16 +46,16 @@ class tblCustomerController extends Controller
     }
 
 
-    public static function addCustomer(Request $request, $CO){
-        $ata=json_decode($CO);
+    public static function addCustomer(Request $request){
+        $ata=$request->all();
         
-        $customerName = $ata[0];
-        $address = $ata[1];
-        $contact = $ata[2];
+        $customerName = $ata['customerName'];
+        $address = $ata['address'];
+        $contact = $ata['contact'];
        
-        $refID = $ata[3];
-        $rank = $ata[4];
-        $email = $ata[5];
+        $refID = $ata['refID'];
+        $rank = $ata['rank'];
+        $email = $ata['email'];
         
         $DBContact=DB::table('customeinformation')
         ->where('Contect', '=', $contact)

@@ -8,6 +8,7 @@
     <meta charset="utf-8" />
     <title>Walk in Customer</title>
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!-- CSS -->
@@ -2329,7 +2330,7 @@ td{
         // var cnic = document.getElementById("addCNIC").value;
         
 
-        var newCustomer = [customerName, address, contact,   refID, rank, email];
+        var newCustomer = {'customerName':customerName, 'address':address, 'contact':contact,   'refID':refID, 'rank':rank, 'email':email};
 
         if(customerName==""||address==""||contact==""  ){
             alert("Fill in all fields");
@@ -2344,8 +2345,15 @@ td{
         };
         var EC = JSON.stringify(newCustomer);
         
-        xhttp.open("GET", "./addCustomer/" + EC, true);
-        xhttp.send();
+        // xhttp.open("GET", "./addCustomer/" + EC, true);
+        // xhttp.send();
+        xhttp.open("POST", "./addCustomer/", true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+
+    var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+    xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+    
+    xhttp.send(EC);
 }
 }
 

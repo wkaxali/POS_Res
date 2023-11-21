@@ -18,6 +18,7 @@ class userAccountController extends Controller
 
         $UserData = DB::table('customeinformation')
         ->where([['Email', '=', $login]])->orwhere([['Contect', '=', $login]]);
+        // dd($UserData->first());
         $CustomerName = $UserData->first()->CustomerName;
         $Password = $UserData->first()->Password;
         $userID = $UserData->first()->CustomerID;

@@ -77,7 +77,7 @@ Route::get('/adp/{data}',[CUDproduct::class, 'insertProduct']);
 //-----------------
 //---------------------
 Route::get('/orderreview/{data}',[CUDproduct::class, 'insertProduct'] );
-Route::get('/addCustomer/{AC}',[tblCustomerController::class, 'addCustomer'] );
+Route::post('/addCustomer',[tblCustomerController::class, 'addCustomer'] );
 //--------------------------------------------------
 //---------------------------------------------
 Route::get('/loadProductCategory',[AddMenuController::class, 'loadProductCategory']);
