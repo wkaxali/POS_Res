@@ -40,7 +40,7 @@ Route::get('/getProductImage/{id}',[CUDproduct::class, 'getImage']);
 Route::get('/getCategories',[CUDproduct::class, 'getCategories']);
 Route::get('/updateInvoice/{data}/{id}',[saleInvoiceEditController::class, 'UpdateSaleInvoice']);
 Route::get('/getInvoiceCustomer/{data}',[serviceSalesFlow::class, 'printSaleRequestOnInvoiceNumber']);
-Route::get('/addSalesForSS/{data}',[serviceSalesFlow::class, 'SalesFlow']);
+Route::post('/addSalesForSS',[serviceSalesFlow::class, 'SalesFlow']);
 Route::get('/getCustomersInfo/{CID}',[tblCustomerController::class, 'getCustomerDetail']);
 Route::get('/getAllProducts',[CUDproduct::class, 'getAllProducts']);
 Route::get('/getAllCustomers',[tblCustomerController::class, 'getAllCustomers']);
@@ -252,11 +252,21 @@ Route::get('/ff', function () {
 Route::get('/ss', function () {
     $UN = session()->get('Designation');
     if(true){
-    return view('sales'); 
+    return view('newSalesWindow'); 
     }else{
     return view("adminLogin");
     }
 });
+
+Route::get('/nss', function () {
+    $UN = session()->get('Designation');
+    if($UN=="Admin"||$UN=="User"){
+    return view('sales');
+    }else{
+    return view("signInSignUp");
+    }
+});
+
 
 Route::get('/admin', function () {
     return view('adminLogin');

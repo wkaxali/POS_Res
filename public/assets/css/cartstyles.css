@@ -1,0 +1,65 @@
+/* Style the modal content */
+.modal-content {
+    background-color: #f8f9fa;
+}
+
+/* Style the modal header */
+.modal-header {
+    background-color: #222831;
+    color: #fff;
+}
+
+/* Style the cart title */
+.modal-title {
+    font-size: 24px;
+}
+
+/* Style the close button */
+.close {
+    color: #e53a3a;
+}
+
+/* Style the dropdowns */
+.form-control {
+    margin-bottom: 10px;
+}
+
+/* Style the cart items */
+.cart-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Style the cart summary */
+.cart-summary {
+    float: right;
+    margin-right: 20px;
+}
+
+/* Style the buttons in the footer */
+.modal-footer {
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+/* Style the buttons */
+.btn-primary {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Style the close button in the footer */
+.btn-secondary {
+    background-color: #ccc;
+    color: #000;
+}
+
+/* Additional custom styles can be added as needed */

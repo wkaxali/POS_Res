@@ -17,9 +17,11 @@ use NumberToWords\NumberToWords;
 
 class serviceSalesFlow extends Controller
 {
-    public function SalesFlow(Request $request,$data){
+    public function SalesFlow(Request $request){
 
-        $Array=json_decode($data);
+
+        $Array=$request->all();
+        // dd($Array);
         $tot=$Array[1];
         
         $OverAllDiscount= $Array[2];
