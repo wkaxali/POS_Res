@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 
 class thermalprintingController extends Controller
 {
-     public static function thermalPrinting( ){
+     public static function thermalPrinting(){
 
         $IN = session()->get('invoiceNumber');
         $overallDiscount = session()->get('overallDiscount');
         $coinsDiscount = session()->get('coinsDiscount');
         $totalDiscount= $coinsDiscount+$overallDiscount;
-       $invoiceDetails=serviceSalesFlow::getAllInvoiceDetails($IN);
+        $invoiceDetails=serviceSalesFlow::getAllInvoiceDetails($IN);
+        
        
         $order="";
         foreach($invoiceDetails as $product){

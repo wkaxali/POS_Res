@@ -1,91 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Invoice</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="style.css">
+        <title>Receipt example</title>
 
-        .invoice {
-            width: 80mm; /* Adjust the width according to your thermal printer's paper size */
-            margin: 0 auto;
-            padding: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            word-wrap: break-word; /* Ensures that long words are broken and don't overflow */
-        }
+        <style>
 
-        .invoice header,
-        .invoice footer {
-            padding: 5px;
-            text-align: center;
-            background-color: #f5f5f5;
-        }
+* {
+    font-size: 10px;
+    font-family: 'Times New Roman';
+}
 
-        .invoice section {
-            margin-bottom: 10px;
-        }
+td,
+th,
+tr,
+table {
+    border-top: 1px solid black;
+    border-collapse: collapse;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+td.description,
+th.description {
+    width:95px;
+    max-width:95px;
+}
 
-        th, td {
-            padding: 5px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
+td.quantity,
+th.quantity {
+    width: 30px;
+    max-width: 30px;
+    
+}
 
-        .total {
-            font-weight: bold;
-            font-size: 14px; /* Adjust the font size as needed */
-        }
-    </style>
-</head>
-<body>
+td.price,
+th.price {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+}
 
-<div class="invoice">
-    <header>
-        <h2>Restaurant Invoice</h2>
-    </header>
+.centered {
+    text-align: center;
+    align-content: center;
+}
 
-    <section>
-        <h3>Order Details</h3>
-        <table>
-            <thead>
-            <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Unit Price</th>
-                <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($items as $item)
-                <tr>
-                    <td>{{ $item['name'] }}</td>
-                    <td>{{ $item['quantity'] }}</td>
-                    <td>${{ $item['price'] }}</td>
-                    <td>${{ $item['quantity'] * $item['price'] }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </section>
+.ticket {
+    width: 155px;
+    max-width: 155px;
+    max-height: 155px;
+}
 
-    <section>
-        <h3>Payment Information</h3>
-        <p class="total">Total Amount: ${{ $total }}</p>
-    </section>
+.ticket {
+           padding-top: 0px;
+           padding-bottom: 0px ;
+         }
 
-    <footer>
-        <p>Thank you for dining with us!</p>
-    </footer>
-</div>
+@media print {
+    .hidden-print,
+    .hidden-print * {
+        display: none !important;
+    }
+ 
+    @page  
+{ 
 
-</body>
+    size: 75mm 60mm; 
+    /* this affects the margin in the printer settings */ 
+    margin: 0mm 0mm 0mm 0mm;
+} 
+        
+}
+
+body
+{
+  margin: 0pt 0pt 0pt 0pt;
+  
+}
+
+        </style>
+    </head>
+    <body onload="getDataForPrinting()">
+        <div class="ticket">
+        <button id="btnPrint" class="hidden-print">Print</button><br><br><br>
+            <h3 class="centered">KhyberPass Resturant
+                <br> 
+                <br> 716 Romford Road Manor Park<br>Phone   : +44 115 924 4044 <br>
+                <br><table>
+                </h3>
+                <!-- <tr>
+                         <p id ="data"></p>
+                    </tr> -->
+                    
+                     
+                     <td id="data"> </td>
+                     
+                 
+                     
+                    
+                     
+        </div>
+         
+        <script src="script.js"></script>
+
+        <script>
+            var btnPrint = document.querySelector("#btnPrint");
+            btnPrint.addEventListener("click", () => {
+                window.print();
+            });
+        </script>
+        <script>
+           function getDataForPrinting (){
+            var xhttp = new XMLHttpRequest();
+                 xhttp.onreadystatechange = function () {
+                 if (this.readyState == 4 && this.status == 200) {
+                var data=this.responseText;
+                 
+                document.getElementById("data").innerHTML=data;
+                
+            }
+        };
+        xhttp.open("GET", "./thermalPrinting/" , true);
+        xhttp.send();
+            }
+        </script>
+    </body>
 </html>

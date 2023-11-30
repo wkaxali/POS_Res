@@ -1114,7 +1114,7 @@ function getTouchScreenStatus() {
     xhttp.send();
 }
 function print(){
-    window.open("./testpdf/as");
+    window.open("./invoice");
 }
 
 function UpdateSaleInvoice() {
