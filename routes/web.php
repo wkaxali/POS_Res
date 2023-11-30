@@ -121,8 +121,7 @@ Route::get('/getCustomers',[tblCustomerController::class, 'getCustomers']);
 Route::get('/editCustomer/{UC}',[tblCustomerController::class, 'editCustomer']);
 Route::get('/modifyOrder/{PID}',[shiftDataController::class, 'modifyOrder']);
 Route::get('/thermalPrinting',[thermalprintingController::class, 'thermalPrinting']);
-
-Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');
+// Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');
 
 Route::get('/rev', function () {
 
