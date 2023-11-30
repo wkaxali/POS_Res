@@ -1114,7 +1114,7 @@ function getTouchScreenStatus() {
     xhttp.send();
 }
 function print(){
-    window.open("./invoice");
+    window.open("./thermalPrinting");
 }
 
 function UpdateSaleInvoice() {
