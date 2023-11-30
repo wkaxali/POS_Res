@@ -155,6 +155,16 @@ Route::get('/eu', function () {
     }
 });
 
+Route::get('/invoice', function () {
+    $UN = session()->get('Designation');
+    if($UN=="Admin"){
+    return view('invoice');
+    }else{
+    return view("adminLogin");
+    }
+});
+
+
 Route::get('/es', function () {
     $UN = session()->get('Designation');
     if($UN=="Admin"){
