@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -168,7 +170,7 @@
 
                             alert("please fill all fields");
                                 }  else{
-                            var updateCategoryName = [CID, CategoryName]
+                            var updateCategoryName = {'CID':CID, 'CategoryName':CategoryName}
                             };
 
                             var UC = JSON.stringify(updateCategoryName);
@@ -184,8 +186,15 @@
                             };
 
                             // var MenuID=$('#Menus').find(":selected").val();
-                            xhttp.open("GET", "./editCategory/" + UC, true);
-                            xhttp.send();
+                            // xhttp.open("GET", "./editCategory/" + UC, true);
+                            // xhttp.send();
+                            xhttp.open("POST", "./editCategory/", true);
+                            xhttp.setRequestHeader('Content-Type', 'application/json');
+
+                            var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                            
+                            xhttp.send(UC);
 
                         }
                         function logout(){

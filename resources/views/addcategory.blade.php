@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="Enter your description here" />
@@ -157,9 +158,14 @@
                 alert(this.responseText);
             }
         };
-       
-        xhttp.open("GET", "./AddCategory/" + pName, true);
-        xhttp.send();
+        var payload = JSON.stringify({'pName':pName})
+        xhttp.open("POST", "./AddCategory/", true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+
+        var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+        xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+        
+        xhttp.send(payload);
 
 
     };

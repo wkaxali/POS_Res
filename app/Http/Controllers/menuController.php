@@ -96,10 +96,11 @@ return $results;
 }
 
 
-public function AddCategory($catID){
+public function AddCategory(Request $request){
 
-$catgName=$catID;
-
+$array=$request->all();
+// dd($array);
+$catgName = $array['pName'];
 $newUser=DB::table('tblpcategory')
 ->insertGetId([
 'CategoryName'=>$catgName,
@@ -107,10 +108,10 @@ $newUser=DB::table('tblpcategory')
 
 return $catgName." category is added";
 }
-public static function editCategoryName(Request $request, $CO){
-$ata=json_decode($CO);
-$PCID=$ata[0];
-$CategoryName = $ata[1];
+public static function editCategoryName(Request $request){
+$ata=$request->all();
+$PCID=$ata['CID'];
+$CategoryName = $ata['CategoryName'];
 
 
 $re = DB::table('tblpcategory')

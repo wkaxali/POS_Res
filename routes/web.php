@@ -113,9 +113,9 @@ Route::get('/received',[orderViewController::class, 'received'] );
 Route::get('/getstatus/{orderID}',[orderViewController::class, 'getstatus'] );
 Route::get('/viewAllStock',[OrderFlowController::class, 'viewAllStock']);
 Route::get('/SetStockIdeal/{UC}',[OrderFlowController::class, 'UpdateStock']);
-Route::get('/AddCategory/{pName}',[menuController::class, 'AddCategory']);
+Route::post('/AddCategory',[menuController::class, 'AddCategory']);
 Route::get('/getCategory',[menuController::class, 'getCategories']);
-Route::get('/editCategory/{UC}',[menuController::class, 'editCategoryName']);
+Route::post('/editCategory',[menuController::class, 'editCategoryName']);
 Route::get('/getOrderStatus',[orderViewController::class, 'getOrderStatus']);
 Route::get('/getCustomers',[tblCustomerController::class, 'getCustomers']);
 Route::get('/editCustomer/{UC}',[tblCustomerController::class, 'editCustomer']);
@@ -292,7 +292,7 @@ return view('StripeForm');
 Route::get('/acg', function () {
     $UN = session()->get('Designation');
     if($UN=="Admin"){
-    return view('addcategory'); 
+    return view('AddCategory'); 
     }else{
     return view("adminLogin");
     }
