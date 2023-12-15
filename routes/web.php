@@ -118,7 +118,7 @@ Route::get('/getCategory',[menuController::class, 'getCategories']);
 Route::post('/editCategory',[menuController::class, 'editCategoryName']);
 Route::get('/getOrderStatus',[orderViewController::class, 'getOrderStatus']);
 Route::get('/getCustomers',[tblCustomerController::class, 'getCustomers']);
-Route::get('/editCustomer/{UC}',[tblCustomerController::class, 'editCustomer']);
+Route::post('/editCustomer',[tblCustomerController::class, 'editCustomer']);
 Route::get('/modifyOrder/{PID}',[shiftDataController::class, 'modifyOrder']);
 Route::get('/thermalPrinting',[thermalprintingController::class, 'thermalPrinting']);
 // Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');

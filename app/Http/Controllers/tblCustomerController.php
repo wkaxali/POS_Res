@@ -118,15 +118,15 @@ class tblCustomerController extends Controller
 
 
     
-    public static function editCustomer(Request $request, $CO){
-        $ata=json_decode($CO);
-        $CID = $ata[0];
-        $customerName = $ata[1];
-        $contact = $ata[2];
-        $CNIC = $ata[3];
-        $balance = $ata[4];
-        $RID = $ata[5];
-        $comments = $ata[6];
+    public static function editCustomer(Request $request){
+        $ata=$request->all();
+        $CID = $ata['CID'];
+        $customerName = $ata['customerName'];
+        $contact = $ata['contact'];
+        $CNIC = $ata['CNIC'];
+        $balance = $ata['Balance'];
+        $RID = $ata['RID'];
+        $comments = $ata['Comments'];
 
         $re = DB::table('customeinformation')
         ->where('CustomerID', $CID)

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width">
     <title> Customer Profile </title>
 
@@ -164,11 +165,11 @@
             var rank = document.getElementById("rank").value;
             var refID = document.getElementById("refID").value;
 
-            var addCustomers = [customerName, address, contact,  refID, rank, email];
+			var newCustomer = {'customerName':customerName, 'address':address, 'contact':contact,   'refID':refID, 'rank':rank, 'email':email};
             if (customerName==""||address==""||contact==""|| refID==""||rank==""||email==""){
                 alert("please fill out these fields");
             }else{
-            var AC = JSON.stringify(addCustomers);
+            var AC = JSON.stringify(newCustomer);
             
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -177,9 +178,18 @@
                     alert(this.responseText);
                 }
             };
+
             
-            xhttp.open("GET", "./addCustomer/" + AC, true);
-            xhttp.send();
+            // xhttp.open("GET", "./addCustomer/" + AC, true);
+            // xhttp.send();
+
+			xhttp.open("POST", "./addCustomer/", true);
+			xhttp.setRequestHeader('Content-Type', 'application/json');
+
+			var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+			xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			
+			xhttp.send(AC);
         }
         }
 		function logout(){

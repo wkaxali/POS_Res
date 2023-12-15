@@ -3,6 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -231,7 +233,7 @@
                             if (CID == "" || customerName == "" || contact == "" || CNIC == "" || Balance == "" || Comments == "") {      
                                  alert("please fill all fields");
                             }else{
-                            var updateCustomer = [CID, customerName, contact, CNIC, Balance, RID, Comments];
+                            var updateCustomer = {'CID':CID, 'customerName':customerName, 'contact':contact, 'CNIC':CNIC, 'Balance':Balance, 'RID':RID, 'Comments':Comments};
                             }
 
                             var UC = JSON.stringify(updateCustomer);
@@ -247,8 +249,16 @@
                             };
 
                             // var MenuID=$('#Menus').find(":selected").val();
-                            xhttp.open("GET", "./editCustomer/" + UC, true);
-                            xhttp.send();
+                            // xhttp.open("GET", "./editCustomer/" + UC, true);
+                            // xhttp.send();
+
+                            xhttp.open("POST", "./editCustomer/", true);
+                            xhttp.setRequestHeader('Content-Type', 'application/json');
+
+                            var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                            
+                            xhttp.send(UC);
 
                         }
 
