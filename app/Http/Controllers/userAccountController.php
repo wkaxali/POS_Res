@@ -135,14 +135,14 @@ class userAccountController extends Controller
         $data=DB:: select('select * from userinfo');
         return $data;
       }
-       public static function editUsers(Request $request, $CO){
-        $ata=json_decode($CO);
-        $UserID = $ata[0];
-        $UserName = $ata[1];
-        $Password = $ata[2];
-        $Designation = $ata[3];
-        $Email = $ata[4];
-        $Contact = $ata[5];
+       public static function editUsers(Request $request){
+        $ata=$request->all();
+        $UserID = $ata['UID'];
+        $UserName = $ata['username'];
+        $Password = $ata['pass'];
+        $Designation = $ata['desgination'];
+        $Email = $ata['Email'];
+        $Contact = $ata['Contact'];
 
         $re = DB::table('userinfo')
         ->where('UserID', $UserID)

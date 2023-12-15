@@ -62,7 +62,7 @@ Route::get('/signUp/{data}',[userAccountController::class, 'signUp'] );
 Route::post('/cancelOrder',[orderViewController::class, 'cancelOrder']);
 
 Route::get('/getUsers',[userAccountController::class, 'getUsers'] );
-Route::get('/editUsers/{EU}',[userAccountController::class, 'editUsers'] );
+Route::post('/editUsers',[userAccountController::class, 'editUsers'] );
 
 Route::post('/uploadfile',[UploadfileController::class, 'index'] );
 Route::post('/uploadfile',[UploadfileController::class, 'upload'] );

@@ -3,6 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -243,7 +245,7 @@
             var Email = document.getElementById("Email").value;
             var Contact = document.getElementById("Contact").value;
 
-            var edituser = [UID, username, pass, desgination, Email, Contact];
+            var edituser = {'UID':UID, 'username':username, 'pass':pass, 'desgination':desgination, 'Email':Email, 'Contact':Contact};
 
             var EU = JSON.stringify(edituser);
             
@@ -257,8 +259,15 @@
             };
 
             // var MenuID=$('#Menus').find(":selected").val();
-            xhttp.open("GET", "./editUsers/" + EU, true);
-            xhttp.send();
+            // xhttp.open("GET", "./editUsers/" + EU, true);
+            // xhttp.send();
+            xhttp.open("POST", "./editUsers/", true);
+            xhttp.setRequestHeader('Content-Type', 'application/json');
+
+            var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            
+            xhttp.send(EU);
 
         }
 
