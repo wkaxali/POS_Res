@@ -250,10 +250,66 @@
                       </select> -->
 
                       <!-- Customer dropdown -->
-                      <select class="form-control mb-3" data-live-search="true" id="CustomerName" onchange="getCurrentCustomerInfo()">
-                          <option>Customer</option>
+                  <div style = "display:flex;" >Customer:</div>
+                      <select class="selectpicker" data-live-search="true" tabindex="null" id="CustomerName" onchange="getCurrentCustomerInfo()">
+                         Customer
                           <!-- Add customer options here -->
                       </select>
+
+                      <button class="btn btn-success" data-toggle="modal"
+data-target="#staticBackdrop">Add</button>
+
+<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<div class="modal-body">
+<div class="registration-form" >
+<h2>Add New Customer</h2>
+<div class="form-group-1">
+<form>
+<input type="text" style="width:232px;" class="form-control item" name="name" id="addCustomerName"
+placeholder="Customer Name" required />
+<input type="text" style="width:232px;" class="form-control item" name="title" id="address"
+placeholder="Address" required />
+
+<input type="number" style="width:232px;" class="form-control item" name="tel" id="addContact"
+placeholder="Contact" required />
+
+<input type="email" style="width:232px;" class="form-control item" name="tel" id="email"
+placeholder="Email ID" required />
+<!-- 
+<input type="number" style="width:232px;" class="form-control item" name="title" id="addCNIC" placeholder="ID Card"
+required /> -->
+<input type="number" style="width:232px;" class="form-control item" name="phone_number" id="refID"
+placeholder="Refferal ID" required />
+<input type="text" style="width:232px;" class="form-control item" name="phone_number" id="rank"
+placeholder="Rank" required />
+</form>
+</div>
+
+<div class="form-submit">
+<button class="btn btn-success" onclick="addCustomer()" class="btn create-account" name="submit" id="submit"
+class="submit" value="">Add</button>
+</div>
+</div>
+
+</div>
+{{-- <div class="modal-footer">
+<button type="button" class="btn btn-success"
+data-dismiss="modal">Close</button>
+</div> --}}
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
                       <div>
                         <div class="invisible-div">Invoice Number: <span ><input  type="text"  id="InvoiceID" readonly></span></div>
                         <div class="invisible-div">Customer Id: <span><input  type="text"  id="CID" readonly></span></div>

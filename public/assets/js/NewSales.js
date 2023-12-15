@@ -1249,42 +1249,45 @@ function UpdateSaleInvoice() {
 
 function addCustomer() {
 
-var customerName = document.getElementById("addCustomerName").value;
+    var customerName = document.getElementById("addCustomerName").value;
+      
+    var address = document.getElementById("address").value;
 
-var fatherName = document.getElementById("addFatherName").value;
+    var contact = document.getElementById("addContact").value;
+  
+    var rank = document.getElementById("rank").value;
+    
+    var email = document.getElementById("email").value;
+    
+    var refID = document.getElementById("refID").value;
 
-var contact = document.getElementById("addContact").value;
+    // var cnic = document.getElementById("addCNIC").value;
+    
 
-var profession = document.getElementById("addProfession").value;
+    var newCustomer = {'customerName':customerName, 'address':address, 'contact':contact,   'refID':refID, 'rank':rank, 'email':email};
 
-var address = document.getElementById("addAddress").value;
-
-var email = document.getElementById("email").value;
-
-var cnic = document.getElementById("addCNIC").value;
-
-if(customerName==""||fatherName==""||contact==""||profession==""||address==""||email==""||cnic==""){
-    alert("Fill in all fields");
-}else{
-
-    var newCustomerObject = {'customerName':customerName, 'fatherName':fatherName, 'contact':contact, 'profession':profession, 'address':address, 'email':email, 'cnic':cnic};
+    if(customerName==""||address==""||contact==""  ){
+        alert("Fill in all fields");
+    }else{
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             alert(this.responseText);
+            loadAllCustomers();
         }
     };
-    var EC = JSON.stringify(newCustomerObject);
-
-    xhttp.open("POST", "./insertCustomer/", true);
-    xhttp.setRequestHeader('Content-Type', 'application/json');
-
-    var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-    xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+    var EC = JSON.stringify(newCustomer);
     
-    xhttp.send(EC);
+    // xhttp.open("GET", "./addCustomer/" + EC, true);
+    // xhttp.send();
+    xhttp.open("POST", "./addCustomer/", true);
+xhttp.setRequestHeader('Content-Type', 'application/json');
 
+var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+
+xhttp.send(EC);
 }
 }
 
