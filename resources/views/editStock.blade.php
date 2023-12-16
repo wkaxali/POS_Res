@@ -3,6 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
@@ -339,7 +341,7 @@ function SetStockIdeal() {
    
     var instock = document.getElementById("instock").value;
     
-    var UpdateStock = [PID, productName, category, description,costprice,saleprice,instock];
+    var UpdateStock = {'PID':PID, 'productName':productName, 'category':category, 'description':description,'costprice':costprice,'saleprice':saleprice,'instock':instock};
    
 
     var UC = JSON.stringify(UpdateStock);
@@ -355,8 +357,15 @@ function SetStockIdeal() {
             };
             
             // var MenuID=$('#Menus').find(":selected").val();
-            xhttp.open("GET", "./SetStockIdeal/" + UC, true);
-            xhttp.send();
+            // xhttp.open("GET", "./SetStockIdeal/" + UC, true);
+            // xhttp.send();
+            xhttp.open("POST", "./SetStockIdeal/", true);
+            xhttp.setRequestHeader('Content-Type', 'application/json');
+
+            var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            
+            xhttp.send(UC);
             
         }
 

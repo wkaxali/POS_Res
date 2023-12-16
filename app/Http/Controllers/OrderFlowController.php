@@ -303,15 +303,15 @@ class OrderFlowController extends Controller
           return $EID;
         }
         
-        public static function UpdateStock(Request $request, $CO){
-        $ata=json_decode($CO);
-        $productID = $ata[0];
-        $productName = $ata[1];
-        $category = $ata[2];
-        $description = $ata[3];
-        $PerUnitPurchasePrice = $ata[4];
-        $PerUnitSalePrice = $ata[5];
-        $instock = $ata[6];
+        public static function UpdateStock(Request $request){
+        $ata=$request->all();
+        $productID = $ata['PID'];
+        $productName = $ata['productName'];
+        $category = $ata['category'];
+        $description = $ata['description'];
+        $PerUnitPurchasePrice = $ata['costprice'];
+        $PerUnitSalePrice = $ata['saleprice'];
+        $instock = $ata['instock'];
 
         $re = DB::table('productdefination')
         ->where('ProductSerial', $productID)

@@ -112,7 +112,7 @@ Route::get('/receivedOrders/{id}',[orderViewController::class, 'receivedOrders']
 Route::get('/received',[orderViewController::class, 'received'] );
 Route::get('/getstatus/{orderID}',[orderViewController::class, 'getstatus'] );
 Route::get('/viewAllStock',[OrderFlowController::class, 'viewAllStock']);
-Route::get('/SetStockIdeal/{UC}',[OrderFlowController::class, 'UpdateStock']);
+Route::post('/SetStockIdeal',[OrderFlowController::class, 'UpdateStock']);
 Route::post('/AddCategory',[menuController::class, 'AddCategory']);
 Route::get('/getCategory',[menuController::class, 'getCategories']);
 Route::post('/editCategory',[menuController::class, 'editCategoryName']);
