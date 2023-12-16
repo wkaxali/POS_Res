@@ -54,7 +54,7 @@ Route::get('/CashierLogin/{data}',[userAccountController::class, 'CashierLogin']
 Route::get('/regCashier/{data}',[userAccountController::class, 'regCashier'] );
 
 Route::get('/logout/{adminID}',[userAccountController::class, 'logout'] );
-Route::get('/adminLogin/{data}',[userAccountController::class, 'adminLogin'] );
+Route::post('/adminLogin',[userAccountController::class, 'adminLogin'] );
 Route::get('/regAdmin/{data}',[userAccountController::class, 'regAdmin'] );
 
 Route::get('/loginUser/{data}',[userAccountController::class, 'loginUser'] );

@@ -80,11 +80,11 @@ class userAccountController extends Controller
         }
      }
 
-     public function adminLogin(Request $request, $data){
+     public function adminLogin(Request $request){
         
-        $obj=json_decode($data);
-        $User=$obj[0];
-        $Password=$obj[1];
+        $obj=$request->all();
+        $User=$obj['UserName'];
+        $Password=$obj['Password'];
 
         $UserCheck = DB::table('userinfo')
         ->where([['Designation', '=', 'Admin'], ['Email', '=', $User], ['Password', '=', $Password]])->orwhere([['Designation', '=', 'Admin'], ['Contact', '=', $Password], ['Password', '=', $Password]]);
