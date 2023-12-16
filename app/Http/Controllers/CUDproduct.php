@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 use DB;
 class CUDproduct extends Controller
 {
-    public function insertProduct(Request $request, $CO)
+    public function insertProduct(Request $request)
     {
         //[ProductName,ProductCat,ProductDes,PurchasePrice,SalePrice,StockIn];
         //$e=0;
-        $obj=json_decode($CO);
-        $Pname=$obj[0];
-        $Pcateg=$obj[1];
-        $PDes=$obj[2];
-        $Ppurchaseprice=$obj[3];
-        $Psaleprice=$obj[4];
-        $Psubcat=$obj[5];
-        $Pbarcode=$obj[6];
-        $Premark=$obj[7];
+        $obj=$request->all();
+        $Pname=$obj['ProductName'];
+        $Pcateg=$obj['ProductCat'];
+        $PDes=$obj['ProductDes'];
+        $Ppurchaseprice=$obj['PurchasePrice'];
+        $Psaleprice=$obj['SalePrice'];
+        $Psubcat=$obj['StockIn'];
+        $Pbarcode=$obj['Pbarcode'];
+        $Premark=$obj['Premark'];
         
         
 

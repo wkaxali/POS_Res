@@ -75,7 +75,7 @@ Route::get('/DelId/{ID}',[CUDproduct::class, 'DeletionofProductID'] );
 Route::get('/checkOutOrder/{data}',[shiftDataController::class, 'transferOrderToReview'] );
 Route::get('/fetchAllmenu',[menuController::class, 'fetchAllMenu'] );
 //-----------------
-Route::get('/adp/{data}',[CUDproduct::class, 'insertProduct']);
+Route::post('/adp',[CUDproduct::class, 'insertProduct']);
 //-----------------
 //---------------------
 Route::get('/orderreview/{data}',[CUDproduct::class, 'insertProduct'] );

@@ -20,13 +20,13 @@ class UploadfileController extends Controller
     
     $productArray = $request->pname;
     $obj=json_decode($productArray);
-
-    $productName=$obj[0];
-    $productCat=$obj[1];
-    $productDes=$obj[2];
-    $purchasePrice=$obj[3];
-    $salePrice=$obj[4];
-    $stockIn=$obj[5];
+    // dd($obj->ProductName);
+    $productName=$obj->ProductName;
+    $productCat=$obj->ProductCat;
+    $productDes=$obj->ProductDes;
+    $purchasePrice=$obj->PurchasePrice;
+    $salePrice=$obj->SalePrice;
+    $stockIn=$obj->StockIn;
 
     $pid=DB::table("productdefination")->insertGetId([
         'ProductName'=>$productName,
