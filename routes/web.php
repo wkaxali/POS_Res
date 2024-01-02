@@ -49,11 +49,11 @@ Route::get('/getAllCustomers',[tblCustomerController::class, 'getAllCustomers'])
 Route::get('/getAccountHeads',[accountsController::class, 'getAccountHeads']);
 Route::get('/getInvoiceID',[salesflowController::class, 'getInvoiceNewID']);
 
-Route::get('/logout/{cashierID}',[userAccountController::class, 'logout'] );
+Route::post('/logout',[userAccountController::class, 'logout'] );
 Route::get('/CashierLogin/{data}',[userAccountController::class, 'CashierLogin'] );
 Route::get('/regCashier/{data}',[userAccountController::class, 'regCashier'] );
 
-Route::get('/logout/{adminID}',[userAccountController::class, 'logout'] );
+// Route::po('/logout/{adminID}',[userAccountController::class, 'logout'] );
 Route::post('/adminLogin',[userAccountController::class, 'adminLogin'] );
 Route::get('/regAdmin/{data}',[userAccountController::class, 'regAdmin'] );
 
@@ -106,9 +106,9 @@ Route::post('/PlaceOrder',[orderViewController::class, 'PlaceOrder'] );
 Route::get('/getPreparingOrders',[orderViewController::class, 'getPreparingOrders'] );
 Route::get('/setPrepared/{id}',[orderViewController::class, 'setPreparedOrders'] );
 Route::get('/getDeliveryPendingOrders',[orderViewController::class, 'getDeliveryPendingOrders'] );
-Route::get('/setDelivered/{id}',[orderViewController::class, 'setDelivered'] );
+Route::post('/setDelivered',[orderViewController::class, 'setDelivered'] );
 Route::get('/deliveredOrders',[orderViewController::class, 'deliveredOrders'] );
-Route::get('/receivedOrders/{id}',[orderViewController::class, 'receivedOrders'] );
+Route::post('/receivedOrders',[orderViewController::class, 'receivedOrders'] );
 Route::get('/received',[orderViewController::class, 'received'] );
 Route::get('/getstatus/{orderID}',[orderViewController::class, 'getstatus'] );
 Route::get('/viewAllStock',[OrderFlowController::class, 'viewAllStock']);
@@ -265,7 +265,7 @@ Route::get('/ff', function () {
 
 Route::get('/ss', function () {
     $UN = session()->get('Designation');
-    if(true){
+    if($UN=="Admin"){
     return view('newSalesWindow'); 
     }else{
     return view("adminLogin");

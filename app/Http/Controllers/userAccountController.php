@@ -156,13 +156,15 @@ class userAccountController extends Controller
 
           return $UserID;
         }
-     public static function logout($data){
+     public static function logout(Request $request){
+        $data = $request->all();
+        // dd($data[0]);
         if($data!="0"){
         session()->forget('AdminID');
         session()->forget('cashierID');
         session()->forget('Designation');
 
-        return "User $data is Logged Out";
+        return "User $data[0] is Logged Out";
         }
         else{
             return "User Already Logged Out";

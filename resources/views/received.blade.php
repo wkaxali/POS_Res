@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- <meta http-equiv="refresh" content="10"> -->
     <title>Received Orders</title>
     <!-- CSS -->
@@ -427,8 +428,13 @@
             if(adminID!=""||cashierID!=""){
             lg=1;
             }
-            xhttp.open("GET", "./logout/"+lg, true);
-            xhttp.send();
+            xhttp.open("POST", "./logout/", true);
+			xhttp.setRequestHeader('Content-Type', 'application/json');
+
+			var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+			xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			
+			xhttp.send(lg);
             }
         $(document).ready(function () {
             $("#ready").click(function () {

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- <meta http-equiv="refresh" content="10"> -->
     <title>Ready To Deliver</title>
     <!-- CSS -->
@@ -459,13 +460,20 @@
                 if (this.readyState == 4 && this.status == 200) {
 
                     var data = this.responseText;
-                    // alert(data);
+                    alert(data);
                 }
             };
-            
-            xhttp.open("GET", "./setDelivered/"+id, true);
+            payload = JSON.stringify({'id':id})
+            // xhttp.open("GET", "./setDelivered/"+id, true);
 
-            xhttp.send();
+            // xhttp.send();
+            xhttp.open("POST", "./setDelivered/", true);
+xhttp.setRequestHeader('Content-Type', 'application/json');
+
+var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+
+xhttp.send(payload);
         
      }
 
@@ -483,28 +491,40 @@ xhttp.onreadystatechange = function () {
 if(adminID!=""||cashierID!=""){
   lg=1;
 }
-xhttp.open("GET", "./logout/"+lg, true);
-xhttp.send();
+xhttp.open("POST", "./logout/", true);
+			xhttp.setRequestHeader('Content-Type', 'application/json');
+
+			var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+			xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			
+			xhttp.send(lg);
 }
 
 
 
-     function cancelOrder(id) {
+function cancelOrder(id) {
 
-            if(confirm("Do you want to cancel order number "+id)){
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
+if(confirm("Do you want to cancel order number "+id)){
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function () {
 
-            if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
-            }
-            };
+if (this.readyState == 4 && this.status == 200) {
+alert(this.responseText);
+}
+};
+payload = JSON.stringify({'id':id})
+// xhttp.open("GET", "./cancelOrder/"+id, true);
 
-            xhttp.open("GET", "./cancelOrder/"+id, true);
+// xhttp.send();
+xhttp.open("POST", "./cancelOrder/", true);
+xhttp.setRequestHeader('Content-Type', 'application/json');
 
-            xhttp.send();
-            }
-            }
+var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+
+xhttp.send(payload);
+}
+}
     </script>
 </body>
 </html>

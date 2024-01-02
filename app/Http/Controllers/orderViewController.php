@@ -56,10 +56,10 @@ class orderViewController extends Controller
      }
    
 
-    public function setDelivered($id){
-
+    public function setDelivered(Request $request){
+        $id = $request->all();
         DB::table('tblsaleinvoice')
-        ->where('InvoiceNumber', $id)
+        ->where('InvoiceNumber', $id['id'])
         ->update([
         
         'OrderStatus'=>"DISPATCHED"
@@ -68,10 +68,10 @@ class orderViewController extends Controller
       return "Order is Dispatched";
     }
 
-    public function receivedOrders($id){
-
+    public function receivedOrders(Request $request){
+        $id = $request ->all();
         DB::table('tblsaleinvoice')
-        ->where('InvoiceNumber', $id)
+        ->where('InvoiceNumber', $id['id'])
         ->update([
         
         'OrderStatus'=>"RECEIVED"

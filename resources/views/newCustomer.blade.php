@@ -206,7 +206,16 @@
 			if(adminID!=""||cashierID!=""){
 			lg=1;
 			}
-			xhttp.open("GET", "./logout/"+lg, true);
-			xhttp.send();
+			// xhttp.open("GET", "./logout/"+lg, true);
+			// xhttp.send();
+
+			xhttp.open("POST", "./logout/", true);
+			xhttp.setRequestHeader('Content-Type', 'application/json');
+
+			var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+			xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+			
+			xhttp.send(lg);
+
 			}
     </script>
