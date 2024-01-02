@@ -19,6 +19,7 @@ use App\Http\Controllers\tblCustomerController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//hello
 Route::get('/fetchMenu/{cat}',[menuController::class, 'fetchAllMenuCate'] );
 
 Route::get('/logedInCustomerData/{data}',[tblCustomerController::class, 'logedInCustomerData'] );
