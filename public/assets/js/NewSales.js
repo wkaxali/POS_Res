@@ -208,7 +208,7 @@ function getInvoiceCustomer() {
             document.getElementById("regNumber").value = a[0].VehicalReg;
             
             $('#CustomerName').val(a[0].CustomerID);
-            // $('#CustomerName').selectpicker('refresh');
+            $('#CustomerName').selectpicker('refresh');
             $('#accounts').val(a[0].AID);
             // $('#accounts').selectpicker('refresh');
             $('#vehicals').val(a[0].VehicalID);
@@ -281,26 +281,32 @@ function getInvoiceCustomer() {
 function pageReload(){
     location.reload(); 
 }
-function getVehicals(){
-    document.getElementById("regNumber").value = "";
-    document.getElementById("kilometersDriven").value = "";
-    document.getElementById("chassisNumber").value = "";
-    
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
 
-        if (this.readyState == 4 && this.status == 200) {
-            
-            document.getElementById("vehicals").innerHTML = this.response;
-            // $('#vehicals').selectpicker('refresh');
-            
-        }
-    };
-    
-    xhttp.open("GET", "./loadAutos/", true);
 
-    xhttp.send();
-}
+
+
+// function getVehicals(){
+//     document.getElementById("regNumber").value = "";
+//     document.getElementById("kilometersDriven").value = "";
+//     document.getElementById("chassisNumber").value = "";
+    
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function () {
+
+//         if (this.readyState == 4 && this.status == 200) {
+            
+//             // document.getElementById("vehicals").innerHTML = this.response;
+//             // // $('#vehicals').form-select('refresh');
+//             // $('#vehicals').append($('<option>', { "lun":"lin"}));
+
+            
+//         }
+//     };
+    
+//     xhttp.open("GET", "./loadAutos/", true);
+
+//     xhttp.send();
+// }
 
 // NEWCODEBELOWNOTTOBECOMMITEDYET
 
@@ -335,7 +341,7 @@ function getCategories() {
 
     xhttp.open("GET", "./getCategories/", true);
     xhttp.send();
-    loadAccounts();
+    // loadAccounts();
     loadAllCustomers();
     // getVehicals();
     getInvoiceID();
@@ -495,7 +501,8 @@ function loadAllCustomers() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("CustomerName").innerHTML =
                 this.responseText;
-            // $('#CustomerName').selectpicker('refresh');
+
+
 
         }
     };

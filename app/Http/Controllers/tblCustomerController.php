@@ -176,7 +176,7 @@ class tblCustomerController extends Controller
         public function getAllCustomers(){
 
             $results=DB::select('select * from customeinformation');
-            $sOp='<option value=" "> </option>';           
+            $sOp='<option value=" ">Select Customer</option>';           
             $tableOfHtml="";
                 foreach ($results as $ro){
                     $tableOfHtml=$tableOfHtml." <option value=".$ro->CustomerID.">".$ro->CustomerName."</option>";

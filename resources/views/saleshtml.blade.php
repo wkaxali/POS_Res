@@ -166,7 +166,7 @@ name="invo-1" id="CurrentBalance" readonly>
 <div class="o-inv-2">
 
 
-<label for="issue-3">Customer Name</label>
+<label>Customer Name</label>
 <select class="selectpicker" data-live-search="true" tabindex="null" id="CustomerName"
 onchange="getCurrentCustomerInfo()">
 <!-- from database -->
