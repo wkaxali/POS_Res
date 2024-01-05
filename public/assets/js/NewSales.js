@@ -563,13 +563,13 @@ function showdata() {
 function UseCoins(){
     AC= document.getElementById("CoinsAvailable").innerText;
     CTU=document.getElementById("CoinsToBeUsed").value;
-    if(Number(CTU)<=Number(AC)){
+    if(Number(CTU)<=Number(AC.substring(7))){
         var conversionRate=getCoinsConversionRateOfThisCustomer(1);
         actusalDiscount=parseFloat(CTU)/parseFloat(conversionRate);  
         document.getElementById("coinsDiscounts").value=actusalDiscount;
 
     }else{
-        alert("You have "+AC+" Coins only");
+        alert("You have "+AC.substring(7)+" Coins only");
         document.getElementById("CoinsToBeUsed").value=0;
         UseCoins()
     }

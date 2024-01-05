@@ -249,14 +249,7 @@
                       </select> -->
 
                       <!-- Customer dropdown -->
-                      <div class="flex-container-foraddbtn">
-                        <select class="myselect" style="width: 60%" id="CustomerName"
-                        onchange="getCurrentCustomerInfo()">
-                        </select>
-                    
-                          <button class="btn btn-success btn-sm" data-toggle="modal"
-    data-target="#staticBackdrop">Add New</button>
-              </div>
+                
 <div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1"
 aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -313,30 +306,59 @@ data-dismiss="modal">Close</button>
                         <div class="invisible-div">Customer Id: <span><input  type="text"  id="CID" readonly></span></div>
                         <div class="invisible-div">Last Balance: <span><input  type="text"  id="LastBalance" readonly></span></div>
                         <div class="invisible-div">Current Balance: <span><input  type="text"  id="CurrentBalance" readonly></span></div>
-                        <h5 id="CoinsAvailable">COINS: 0</h5>
                         <div class="invisible-div">Contact Number: <input type="text"  id="CNO" readonly></div>
                         <div class="invisible-div">Category: <input type="text"  id="CustomerCategory" readonly></div>
                         
                     </div>
                     
                     <!-- Cart summary on the right -->
-                    <div class="cart-summary">
+                    {{-- <div class="cart-summary">
                         <!-- Total, discount, tax, net total, amount paid, remaining balance -->
                         <div style = "display:flex;" >Total: <span ><input style="display: inline-block;  height: 25px; width:100px; float:right" class = "form-control" type="text"  id="Total" readonly></span></div>
                         <div style = "display:inline-flex;">Enter Coins: <input style="display: inline;  height: 25px; width:100px; float:right" class = "form-control" type="text"  id="CoinsToBeUsed" onchange="UseCoins()"></div>
                         <div style = "display:flex;">Coins Discount: <input style="display: inline-block;  height: 25px; width:100px; float:right" class = "form-control" type="text"  id="coinsDiscounts" onchange="calc()" readonly></div>
                           <div style = "display:flex;">Discount: <input style="display: inline-block;  height: 25px; width:100px; float:right" class = "form-control" type="text" onchange="calc()" id="DiscountOverall" ></div>
-                          <div class="invisible-div">Gross Total: <span ><input type="text" id="grossTotal" readonly></span></div>
                           <div style = "display:flex;">Tax%: <input style="display: inline-block;  height: 25px; width:100px; float:right" class = "form-control" type="text" onchange="calc()" id="tax"></div>
-                          <div class="invisible-div">Tax Amount: <span ><input type="text" id="taxAmount" readonly></span></div>
                           <div style = "display:flex;">Net Total: <input style="display: inline-block;  height: 25px; width:100px; float:right" class = "form-control" type="text" id="NetTotal" readonly></div>
-                          <div class="invisible-div">Amount Paid: <span ><input type="text" id="AmountPaid" oninput="calcForBalance()" readonly></span></div>
-                          <div class="invisible-div">Remaining Balance: <span ><input type="text" id="RemainingBalance" readonly></span></div>
-                          <!-- Payment method dropdown -->
-                          <!-- <select class="form-control mb-3" id="accounts">
-                              <option>Select Payment Method</option>
-                               Add payment methods here -->
-                          <!-- </select> --> 
+                        </div> --}}
+                        <div class="invisible-div">Gross Total: <span ><input type="text" id="grossTotal" readonly></span></div>
+                        <div class="invisible-div">Tax Amount: <span ><input type="text" id="taxAmount" readonly></span></div>
+                        <div class="invisible-div">Amount Paid: <span ><input type="text" id="AmountPaid" oninput="calcForBalance()" readonly></span></div>
+                        <div class="invisible-div">Remaining Balance: <span ><input type="text" id="RemainingBalance" readonly></span></div>
+                        <div class="container">
+                            <div class="flex-container-foraddbtn">
+                                <select class="myselect" style="width: 60%" id="CustomerName"
+                                onchange="getCurrentCustomerInfo()">
+                                </select>
+                            
+                                  <button class="btn btn-success btn-sm" data-toggle="modal"
+            data-target="#staticBackdrop">Add New</button>
+                      </div>
+                            <h5 id="CoinsAvailable">COINS: 0</h5>
+                        <div class="row">
+                            <div class="col-sm ">Total:</div>
+                            <div class="col-sm-6"><input class = "form-control" type="text" id="Total" readonly></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">Enter Coins:</div>
+                            <div class="col-sm"><input class = "form-control" type="text" id="CoinsToBeUsed" onchange="UseCoins()"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">Coins Disc:</div>
+                            <div class="col-sm-6"><input class = "form-control" type="text"  id="coinsDiscounts" onchange="calc()" readonly></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">Discount:</div>
+                            <div class="col-sm-6"><input class = "form-control" type="text" id="DiscountOverall" onchange="calc()" ></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">Tax%:</div>
+                            <div class="col-sm-6"><input class = "form-control" type="text" id="tax" onchange="calc()" ></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">Net Total:</div>
+                            <div class="col-sm-6"><input class = "form-control" type="text" id="NetTotal" readonly></div>
+                        </div>
                       </div>
                   </div>
               </div>
