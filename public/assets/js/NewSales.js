@@ -501,9 +501,6 @@ function loadAllCustomers() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("CustomerName").innerHTML =
                 this.responseText;
-
-
-
         }
     };
 
@@ -512,33 +509,39 @@ function loadAllCustomers() {
 };
 
 function getCurrentCustomerInfo() {
-    var xhttp = new XMLHttpRequest();
-    showdata();
+    if ($('#CustomerName').find(":selected").val() == "Select Customer") {
+        document.getElementById("CoinsAvailable").innerHTML="COINS: 0"
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var data = this.responseText;
-            var a = JSON.parse(data);
-            document.getElementById("CID").value = a[0].CustomerID;
-            document.getElementById("LastBalance").value = a[0].Balance;
-            document.getElementById("CurrentBalance").value = a[0].Balance;
-            document.getElementById("CNO").value = a[0].Contect;
-            document.getElementById("CustomerCategory").value = a[0].CustomerCatogery;
-            calc();
+        
+    }
+    else {
+        var xhttp = new XMLHttpRequest();
+        showdata();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var data = this.responseText;
+                var a = JSON.parse(data);
+                document.getElementById("CID").value = a[0].CustomerID;
+                document.getElementById("LastBalance").value = a[0].Balance;
+                document.getElementById("CurrentBalance").value = a[0].Balance;
+                document.getElementById("CNO").value = a[0].Contect;
+                document.getElementById("CustomerCategory").value = a[0].CustomerCatogery;
+                calc();
 
 
 
 
-        } else {
+            } else {
             
-        }
-    };
-    var CustomerID = $('#CustomerName').find(":selected").val();
+            }
+        };
+        var CustomerID = $('#CustomerName').find(":selected").val();
 
-    xhttp.open("GET", "./getCustomersInfo/" + CustomerID, true);
-    xhttp.send();
+        xhttp.open("GET", "./getCustomersInfo/" + CustomerID, true);
+        xhttp.send();
 
-
+    }
 }
 
 function showdata() {
@@ -547,8 +550,10 @@ function showdata() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var data=this.responseText;
-            a=JSON.parse(data);
-            document.getElementById("CoinsAvailable").innerHTML=a[0].CoinBalance;
+            a = JSON.parse(data);
+            document.getElementById("CoinsAvailable").innerHTML="COINS: "
+
+            document.getElementById("CoinsAvailable").innerHTML+=a[0].CoinBalance || 0;
         }
     };
     xhttp.open("GET", "./logedInCustomerData/" + ID, true);

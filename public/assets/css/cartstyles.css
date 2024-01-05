@@ -33,8 +33,10 @@
 
 /* Style the cart summary */
 .cart-summary {
-    float: right;
-    margin-right: 20px;
+
+    display:box;
+    align-items: left;
+    gap: 10px;
 }
 
 /* Style the buttons in the footer */

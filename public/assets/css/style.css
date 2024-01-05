@@ -1029,6 +1029,22 @@ a:focus {
   font-size: 18px;
 }
 
+/* .nice-select {
+  width: 150px; 
+}
+
+.nice-select .current {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
+
+.flex-container-foraddbtn {
+  display: flex;
+  align-items: center; /* This will vertically center align the items */
+  gap: 10px; /* This adds some space between your select and button */
+}
+
 .footer_section .footer_social a:hover {
   color: #ffbe33;
 }
