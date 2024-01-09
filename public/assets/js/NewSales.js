@@ -1,88 +1,77 @@
 //sales.js
-
 //first script
 var toggle = true;
-var footerSectionHtml = `  <!-- footer section -->
-            <footer class="footer_section">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-4 footer-col">
-                    <div class="footer_contact">
+function displayFooterSection() { 
+    var footerSectionHTML = ''
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+              var data = JSON.parse(this.responseText);
+              console.log(data)
+              footerSectionHTML = `  <!-- footer section -->
+              <footer class="footer_section">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-4 footer-col">
+                      <div class="footer_contact">
+                        <h4>
+                          Contact Us
+                        </h4>
+                        <div class="contact_link_box">
+                          
+                        <a href="">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span>
+                              Address: ${data[0].Address} 
+                            </span>
+                          </a>
+                          <a href="https://wa.me/${data[0].Phone}">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <span>
+                              Call ${data[0].Phone} 
+                            </span>
+                          </a>
+                          <a href="mailto:${data[0].CompanyEmail}">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <span>
+                              ${data[0].CompanyEmail}
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 footer-col">
+                      <div class="footer_detail">
+                        <a href="/" class="footer-logo">
+                          ${data[0].CompanyName}
+                        </a>
+                        
+                      </div>
+                    </div>
+                    <div class="col-md-4 footer-col">
                       <h4>
-                        Contact Us
+                        Opening Hours
                       </h4>
-                      <div class="contact_link_box">
-                        <a href="">
-                          <i class="fa fa-map-marker" aria-hidden="true"></i>
-                          <span>
-                            Location
-                          </span>
-                        </a>
-                        <a href="">
-                          <i class="fa fa-phone" aria-hidden="true"></i>
-                          <span>
-                            Call +01 1234567890
-                          </span>
-                        </a>
-                        <a href="">
-                          <i class="fa fa-envelope" aria-hidden="true"></i>
-                          <span>
-                            demo@gmail.com
-                          </span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 footer-col">
-                    <div class="footer_detail">
-                      <a href="/db" class="footer-logo">
-                        feane
-                      </a>
                       <p>
-                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                        Everyday
                       </p>
-                      <div class="footer_social">
-                        <a href="">
-                          <i class="fa fa-facebook" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                          <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                          <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                          <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                          <i class="fa fa-pinterest" aria-hidden="true"></i>
-                        </a>
-                      </div>
+                      <p>
+                        10.00 Am -10.00 Pm
+                      </p>
                     </div>
                   </div>
-                  <div class="col-md-4 footer-col">
-                    <h4>
-                      Opening Hours
-                    </h4>
-                    <p>
-                      Everyday
-                    </p>
-                    <p>
-                      10.00 Am -10.00 Pm
-                    </p>
-                  </div>
-                </div>
-                <div class="footer-info">
-                  <p>
-                    &copy; <span id="displayYear"></span> All Rights Reserved By
-                    <a href="https://html.design/">Free Html Templates</a><br><br>
-                    &copy; <span id="displayYear"></span> Distributed By
-                    <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-                  </p>
-                </div>
-              </div>
-            </footer>
-            <!-- footer section -->`
+              </footer>
+              <!-- footer section -->`
+
+            document.getElementById("footerSection").innerHTML = footerSectionHTML;
+
+          }
+      };
+     
+      xhttp.open("GET", "./getCompanyInfo/", true);
+ 
+      xhttp.send();
+}
 
 $(".sidebar-icon").click(function () {
     if (toggle) {
@@ -323,7 +312,8 @@ function getCategories() {
                 
             });
             document.getElementById("menuCategory").innerHTML = table;
-            document.getElementById("footerSection").innerHTML = footerSectionHtml;
+            // document.getElementById("footerSection").innerHTML = footerSectionHtml;
+            displayFooterSection()
             const listItems = document.querySelectorAll('.list_highlight');
             document.querySelectorAll('.list_highlight')[0].classList.toggle('clicked')
             showMenu(1);
@@ -347,6 +337,7 @@ function getCategories() {
     getInvoiceID();
     getSaleHistory();
     calc();
+    getCompanyName();
  }
 
 
@@ -379,7 +370,9 @@ function getCategories() {
                 // table=table+'<tr ><button class="productBtn btn-shine" onclick="addProduct('+PID+', \''+ pName + '\', '+salePrice+', \''+ companyName +'\', '+purchasePrice+')"><span>'+a[i].ProductName+'<br>'+a[i].PerUnitSalePrice+'&#163</span></button>&nbsp</tr>';
                 });
             document.getElementById("menuItems").innerHTML = table;
-            document.getElementById("footerSection").innerHTML = footerSectionHtml;
+            // document.getElementById("footerSection").innerHTML = footerSectionHtml;
+            displayFooterSection()
+            
 
         }
     };

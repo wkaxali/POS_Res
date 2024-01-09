@@ -22,6 +22,7 @@ use App\Http\Controllers\saleInvoiceEditController;
 use App\Http\Controllers\shiftDataController;
 use App\Http\Controllers\deleteFilesController;
 use App\Http\Controllers\thermalprintingController;
+use App\Http\Controllers\companySetupController;
 
 
 /*
@@ -36,6 +37,9 @@ use App\Http\Controllers\thermalprintingController;
 */
 //Route::post('/replaceImage',[deleteFilesController::class, 'rIndex'] );
 Route::post('/replaceImage',[deleteFilesController::class, 'replaceImage']);
+Route::post('/addCompanyInfo',[companySetupController::class, 'addCompanyInfo']);
+Route::get('/getCompanyInfo',[companySetupController::class, 'getCompanyInfo']);
+
 Route::get('/getMenu/{PCID}',[CUDproduct::class, 'getMenu']);
 Route::get('/getAllInvoices',[saleInvoiceEditController::class, 'getAllInvoices']);
 Route::get('/getProductImage/{id}',[CUDproduct::class, 'getImage']);
@@ -421,6 +425,16 @@ Route::get('/ts', function () {
     return view("adminLogin");
     }
 });
+Route::get('/cs', function () {
+    $UN = session()->get('Designation');
+    if($UN=="Admin"){
+    return view('companySetup'); 
+    }else{
+    return view("adminLogin");
+    }
+});
+Route::get('/adminbar', function () {
+    return view('adminNavbar');});
 
 Route::get('/set', function () {
 return view('settings');

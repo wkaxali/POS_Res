@@ -15,7 +15,7 @@
   <link rel="shortcut icon" href="{{asset('assets/img/favicon.png')}}" type="">
   <link rel="stylesheet" href="{{asset('assets/css/cartstyles.css')}}">
 
-  <title></title>
+  <title id="headerTitle"></title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.css')}}" />
@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="sub_page" onload="getCategories(); getCompanyName()">
+<body class="sub_page" onload="getCategories();">
 
   <div class="hero_area">
     <div class="bg-box">
@@ -250,6 +250,7 @@
 
                       <!-- Customer dropdown -->
                 
+                      
 <div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1"
 aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">

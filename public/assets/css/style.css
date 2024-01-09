@@ -993,9 +993,10 @@ a:focus {
 .footer_section .footer-logo {
   display: block;
   font-weight: bold;
-  font-size: 38px;
+  font-size: 45px;
   line-height: 1;
-  color: #ffffff;
+  color: #ffbb00;
+  text-transform: capitalize;
 }
 
 .footer_section .footer_social {
