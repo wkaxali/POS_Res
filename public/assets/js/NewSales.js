@@ -7,7 +7,7 @@ function displayFooterSection() {
     xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
               var data = JSON.parse(this.responseText);
-              console.log(data)
+            //   console.log(data)
               footerSectionHTML = `  <!-- footer section -->
               <footer class="footer_section">
                 <div class="container">
@@ -351,8 +351,6 @@ function getCategories() {
             var data = this.responseText;
             var table='';
             var a = JSON.parse(data);
-
-                
             
             $.each(a, function (i, item) {
 
@@ -363,7 +361,7 @@ function getCategories() {
                 var purchasePrice = a[i].PerUnitPurchasePrice;            
                 var companyName = a[i].Company;
                 
-                table = table +'<div class="col-sm-6 col-lg-4 all burger"><div class="box"> <div class="detail-box"><h5>'+ pName + '</h5><p> '+ description +' </p><div class="options"><h6> '+salePrice+' </h6 > <a onclick="addProduct('+PID+', \''+ pName + '\', '+salePrice+', \''+ companyName +'\', '+purchasePrice+')" >+</a> </div > </div > </div></div>'
+                table = table +'<div class="col-sm-6 col-lg-4 all burger"><div class="box"><div class = "zoom-effect"><img src='+a[i].image+' style="height:60%;width:100%;border-radius:8;" alt ="food_image"></div><div class="detail-box"><h5>'+ pName + '</h5><p> '+ description +' </p><div class="options"><h6> '+salePrice+' </h6 > <a onclick="addProduct('+PID+', \''+ pName + '\', '+salePrice+', \''+ companyName +'\', '+purchasePrice+')" >+</a> </div > </div > </div></div>'
               
             
 
@@ -917,7 +915,7 @@ function insertInSales() {
             if (this.readyState == 4 && this.status == 200) {
 
                 alert("Invoice Number " + this.responseText + " is generated here");
-                //window.open("./testpdf/as");
+                window.open("./thermalPrinting");
 
             }
         };

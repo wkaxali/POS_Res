@@ -142,6 +142,7 @@ a:focus {
 }
 
 .header_section {
+  position: relative;
   padding: 15px 0;
 }
 
@@ -639,6 +640,14 @@ a:focus {
       -ms-flex-pack: center;
           justify-content: center;
   margin-top: 45px;
+}
+
+.zoom-effect {
+  transition: transform 0.3s ease-in-out;
+}
+
+.zoom-effect:hover {
+  transform: scale(1.1); /* You can adjust the scale factor as per your preference */
 }
 
 .food_section .btn-box a {

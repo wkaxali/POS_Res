@@ -40,7 +40,7 @@
       <img src="{{asset('assets/img/hero-bg.jpg')}}" alt="">
     </div>
     <!-- header section strats -->
-    <header class="header_section ">
+    <header class="header_section">
       <div class="container center">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="/">
