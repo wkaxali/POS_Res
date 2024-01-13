@@ -332,8 +332,10 @@ function getCategories() {
     xhttp.open("GET", "./getCategories/", true);
     xhttp.send();
     // loadAccounts();
-    loadAllCustomers();
+    // loadAllCustomers();
+
     // getVehicals();
+    showdata()
     getInvoiceID();
     getSaleHistory();
     calc();
@@ -473,7 +475,7 @@ function getAllProducts() {
     xhttp.open("GET", "./getAllProducts/", true);
     xhttp.send();
     calc();
-    loadAllCustomers();
+    // loadAllCustomers();
     loadAccounts();
     getInvoiceID();
     getSaleHistory();
@@ -534,9 +536,34 @@ function getCurrentCustomerInfo() {
 
     }
 }
-
-
 function showdata() {
+    
+    if(customerID == ""){
+        document.getElementById("loginButton").style.display="block"
+        document.getElementById("profileLabel").style.display="none"
+    }else{
+        document.getElementById("profileLabel").style.display="block"
+        document.getElementById("loginButton").style.display="none"
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+
+                var data=this.responseText;
+                a = JSON.parse(data)
+            
+                document.getElementById("CoinsAvailable").innerHTML="COINS: "
+                document.getElementById("CoinsAvailable").innerHTML+=a[0].CoinBalance || 0;
+                document.getElementById("CustomerName").innerHTML="<b>" + a[0].CustomerName + "</b>";
+                document.getElementById("CID").innerHTML=customerID;
+            }
+        };
+        xhttp.open("GET", "./logedInCustomerData/" + customerID, true);
+        xhttp.send();
+    }
+}
+
+function showdata1() {
     var ID = $('#CustomerName').find(":selected").val();  
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -870,7 +897,7 @@ function insertInSales() {
     }
     
     var CoinsToBeUsed = document.getElementById('CoinsToBeUsed').value;
-    var name = $('#CustomerName').find(":selected").text();
+    var name = $('#CustomerName').text();
     var gross = document.getElementById('grossTotal').value;
     var tax = document.getElementById('tax').value;
     var netTotal = document.getElementById('NetTotal').value;
@@ -1148,7 +1175,7 @@ function UpdateSaleInvoice() {
 
     //var invoiceNumber=getInvoiceID();
     var tot = document.getElementById("Total").value;
-    var customerName = $('#CustomerName').find(":selected").text();
+    var customerName = $('#CustomerName').text();
     var contact = document.getElementById('CNO').value;
     var discount = document.getElementById('DiscountOverall').value;
     var invoiceID = document.getElementById('InvoiceID').value;

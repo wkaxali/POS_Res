@@ -61,8 +61,8 @@ Route::get('/regCashier/{data}',[userAccountController::class, 'regCashier'] );
 Route::post('/adminLogin',[userAccountController::class, 'adminLogin'] );
 Route::get('/regAdmin/{data}',[userAccountController::class, 'regAdmin'] );
 
-Route::get('/loginUser/{data}',[userAccountController::class, 'loginUser'] );
-Route::get('/signUp/{data}',[userAccountController::class, 'signUp'] );
+Route::post('/loginUser',[userAccountController::class, 'loginUser'] );
+Route::post('/signUp',[userAccountController::class, 'signUp'] );
 Route::post('/cancelOrder',[orderViewController::class, 'cancelOrder']);
 
 Route::get('/getUsers',[userAccountController::class, 'getUsers'] );
@@ -198,7 +198,7 @@ Route::get('/myorder', function () {
 return view('orderReview');
 });
 
-Route::get('/newmenu', function () {
+Route::get('/newmenuold', function () {
 return view('newMenu');
 });
 Route::get('/orev', function () {
@@ -213,6 +213,10 @@ Route::get('/add', function () {
     return view("adminLogin");
     }
 });
+
+Route::get('/newmenu', function () {
+    return view('deliveryMenu');
+    });
 
 Route::get('/', function () {
 return view('index');

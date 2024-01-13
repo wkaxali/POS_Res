@@ -7,22 +7,28 @@ use DB;
 
 class userAccountController extends Controller
 {
-    public function loginUser (Request $request, $data){
+    public function loginUser (Request $request){
  
-        $obj=json_decode($data);
+        $obj=$request->all();
         $login=$obj[0];
         $passcode=$obj[1];
-
+        // dd($passcode);
 
         // ,'OR', 'Email', '=', $email
 
         $UserData = DB::table('customeinformation')
         ->where([['Email', '=', $login]])->orwhere([['Contect', '=', $login]]);
-        // dd($UserData->first());
-        $CustomerName = $UserData->first()->CustomerName;
-        $Password = $UserData->first()->Password;
-        $userID = $UserData->first()->CustomerID;
-        
+        // dd($UserData);
+        if($UserData->first() == null){
+            return "Invalid User";
+        }
+        else{
+
+            $CustomerName = $UserData->first()->CustomerName;
+            $Password = $UserData->first()->Password;
+            $userID = $UserData->first()->CustomerID;
+            
+        }
         
         if($passcode!=$Password){
             session(['UserID' =>null]);
@@ -38,9 +44,9 @@ class userAccountController extends Controller
         }
      }
 
-     public function signUp (Request $request, $data){
+     public function signUp (Request $request){
 
-        $obj=json_decode($data);
+        $obj=$request->all();
         $name=$obj[0];
         $contact=$obj[1];
         $email=$obj[2];

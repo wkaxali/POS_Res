@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
 	<title>Khyber Pass</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 
@@ -363,8 +365,16 @@
 
             var data = JSON.stringify(signInData);
 			
-            xhttp.open("GET", "./loginUser/" + data, true);
-            xhttp.send();
+            // xhttp.open("GET", "./loginUser/" + data, true);
+            // xhttp.send();
+
+	xhttp.open("POST", "./loginUser/", true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+
+    var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+    xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+    
+    xhttp.send(data);
         }
 
 		function passwordCheck(){
@@ -399,8 +409,15 @@
 
             var data = JSON.stringify(signUpData);
 			// alert(data);
-            xhttp.open("GET", "./signUp/" + data, true);
-            xhttp.send();
+            // xhttp.open("GET", "./signUp/" + data, true);
+            // xhttp.send();
+			xhttp.open("POST", "./signUp/", true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+
+    var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+    xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+    
+    xhttp.send(data);
 		}
 
 
