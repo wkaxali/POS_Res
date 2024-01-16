@@ -13,7 +13,7 @@ function displayFooterSection() {
                 <div class="container">
                   <div class="row">
                     <div class="col-md-4 footer-col">
-                      <div class="footer_contact">
+                      <div class="footer_contact" id ="ContactUs&me">
                         <h4>
                           Contact Us
                         </h4>
@@ -1104,11 +1104,12 @@ function getCompanyName(){
    
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-    var headerTitle = document.getElementById("headerTitle")
+    var justTitle = document.getElementById("justTitle")
           if (this.readyState == 4 && this.status == 200) {
               var data= JSON.parse(this.responseText);
               document.title = data[0]['CompanyName']
-              headerTitle.innerHTML = data[0]['CompanyName']
+              justTitle.innerHTML = data[0]['CompanyName']
+              $('#headerTitle').text(data[0]['CompanyName'])
           }
       };
      
