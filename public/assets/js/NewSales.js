@@ -1077,11 +1077,13 @@ function getCompanyName(){
    
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-    var headerTitle = document.getElementById("headerTitle")
+    var justTitle = document.getElementById("justTitle")
           if (this.readyState == 4 && this.status == 200) {
               var data= JSON.parse(this.responseText);
               document.title = data[0]['CompanyName']
-              headerTitle.innerHTML = data[0]['CompanyName']
+              justTitle.innerHTML = data[0]['CompanyName']
+              $('#headerTitle').text(data[0]['CompanyName'])
+
           }
       };
      

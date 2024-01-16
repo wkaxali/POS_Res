@@ -15,7 +15,7 @@
   <link rel="shortcut icon" href="{{asset('assets/img/favicon.png')}}" type="">
   <link rel="stylesheet" href="{{asset('assets/css/cartstyles.css')}}">
 
-  <title id="headerTitle"></title>
+  <title id="justTitle"></title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.css')}}" />
@@ -41,12 +41,10 @@
     </div>
     <!-- header section strats -->
     <header class="header_section">
-      <div class="container center">
+      <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="/">
-            <span id ="headerTitle">
-              
-            </span>
+            <span id ="headerTitle"></span>
           </a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +52,6 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div style = "padding-left:34%; padding-right:40%;">  
           <ul  class="navbar-nav  mx-auto ">
               <li class="nav-item">
                 <a class="nav-link" href="/">Home </a>
@@ -63,7 +60,6 @@
                 <a class="nav-link" data-toggle="modal" data-target="#historyModal">History <span class="sr-only">(current)</span> </a>
               </li>
             </ul>
-</div>
             <div class="user_option">
               
               <a class="cart_link" data-toggle="modal" data-target="#cartModal">
