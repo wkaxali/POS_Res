@@ -176,6 +176,19 @@ class userAccountController extends Controller
             return "User Already Logged Out";
         }
      }
+     public static function userLogout(Request $request){
+        $data = $request->all();
+        // dd($data[0]);
+        if($data!="0"){
+        session()->forget('UserID');
+
+
+        return "User $data[0] is Logged Out";
+        }
+        else{
+            return "User Already Logged Out";
+        }
+     }
 
      public function CashierLogin(Request $request, $data){
         

@@ -355,7 +355,7 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
 					 if(this.responseText!="Invalid User"){
-                    location.replace("./orev")
+                    location.replace("./newmenu")
                   }
                   else{
                     alert("Invalid user");

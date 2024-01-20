@@ -52,6 +52,7 @@ Route::get('/getAllProducts',[CUDproduct::class, 'getAllProducts']);
 Route::get('/getAllCustomers',[tblCustomerController::class, 'getAllCustomers']);
 Route::get('/getAccountHeads',[accountsController::class, 'getAccountHeads']);
 Route::get('/getInvoiceID',[salesflowController::class, 'getInvoiceNewID']);
+Route::post('/userLogout',[userAccountController::class, 'userLogout'] );
 
 Route::post('/logout',[userAccountController::class, 'logout'] );
 Route::get('/CashierLogin/{data}',[userAccountController::class, 'CashierLogin'] );
@@ -449,6 +450,17 @@ return view('touchscreen');
 return view("signInSignUp");
 }
 });
+
+Route::get('/userProfile', function () {
+    $UN = session()->get('Designation');
+    $customerID = session()->get('UserID');
+    if($UN=="Admin" || $customerID!=""){
+    return view("userProfileView");
+    }else{
+    return view("signInSignUp");
+    }
+    });
+
 Route::get('/wel', function () {
 return view('welcomeagain');
 });
@@ -461,6 +473,9 @@ return view('orderReview');
 return view("signupsignin");
 }
 });
+Route::get('/userSignin', function () {
+    return view('signupsignin');
+    });
 Route::get('/aa', function () {
 return view('Check');
 });

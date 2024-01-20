@@ -536,14 +536,47 @@ function getCurrentCustomerInfo() {
 
     }
 }
+function userlogout() {
+    var lg = customerID;
+    if (lg == "") {
+        alert("Not Logged in yet!")
+    }
+    else {
+        
+    
+        console.log(lg)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(this.responseText);
+                pageReload()
+            }
+        }
+        xhttp.open("POST", "./userLogout/", true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+    
+        var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+        xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                
+        xhttp.send(lg);
+    }
+}
 function showdata() {
     
     if(customerID == ""){
         document.getElementById("loginButton").style.display="block"
-        document.getElementById("profileLabel").style.display="none"
+        document.getElementById("profileLabel").style.display = "none"
+        document.getElementById("logingButton").innerHTML = "Login"
+        document.getElementById("logingButton").href = "/userSignin"
+        
+        
     }else{
         document.getElementById("profileLabel").style.display="block"
-        document.getElementById("loginButton").style.display="none"
+        document.getElementById("loginButton").style.display = "none"
+        document.getElementById("logingButton").innerHTML = "My Account"
+        document.getElementById("logingButton").href = "/userProfile"
+        
+        
         
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
