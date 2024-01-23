@@ -68,7 +68,7 @@ again.</div>
 </body>
 <script>
 function check(){
-Stripe.setPublishableKey('pk_test_51Hx51vDF9fotRLlU8pjZ4gMuQfwitpojiEk8W6shYrfBsHTvWOpn3FfrxBPrfeBwwOY7vUBRxf6YrA8PnfSYjts800HR4tMgOw');
+Stripe.setPublishableKey('pk_test_51ObOznEOt4tOgSYJizaT1dA10A0qujg3tI4oOAnfUwbdDwqCaD3PLlKMdjeZ2cdmvBzlZ6jGUDftHVWuOUaIb1bj00Y7ccWylQ');
 
 // alert();
 

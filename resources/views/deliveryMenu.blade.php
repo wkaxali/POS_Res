@@ -397,9 +397,9 @@ data-dismiss="modal">Close</button>
           </div>
           <div class="modal-footer">
               <!-- Buttons for actions -->
-              <button type="button" class="btn btn-success" onclick="insertInSales()" id = "saveBtn">Checkout</button>
-              <button type="button" class="btn btn-success" onclick="UpdateSaleInvoice()"  id = "updateBtn">Update Invoice</button>
-              <button type="button" class="btn btn-success" onclick="print()">Print</button>
+              <button type="button" class="btn btn-success" onclick="insertInSales(), stripeChcekout()" id = "saveBtn">Checkout</button>
+              {{-- <button type="button" class="btn btn-success" onclick="UpdateSaleInvoice()"  id = "updateBtn">Update Invoice</button> --}}
+              {{-- <button type="button" class="btn btn-success" onclick="print()">Print</button> --}}
 
               
             </div>
@@ -439,17 +439,21 @@ data-dismiss="modal">Close</button>
  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
-  <script src="{{asset('assets/js/NewSales.js')}}"></script>
-
+  
   <!-- owl slider -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
   </script>
   <!-- isotope js -->
   <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
- 
+  
   <!-- custom js -->
-  <script src="{{asset('assets/js/deliveryMenu.js')}}"></script>
-
+  <script src="https://js.stripe.com/v3/"></script>
+  <script type="text/javascript">
+    var stripePublicKey = "{{ $stripeKey }}";
+    console.log(stripePublicKey)
+    const stripe = Stripe(stripePublicKey);
+    </script>
+    <script src="{{asset('assets/js/deliveryMenu.js')}}"></script>
 </body>
 
 </html>

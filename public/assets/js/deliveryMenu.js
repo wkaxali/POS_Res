@@ -300,7 +300,7 @@ function pageReload(){
 // NEWCODEBELOWNOTTOBECOMMITEDYET
 
 function getCategories() {
-    document.getElementById("updateBtn").disabled = true; 
+    // document.getElementById("updateBtn").disabled = true; 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -561,6 +561,51 @@ function userlogout() {
         xhttp.send(lg);
     }
 }
+// const stripe = Stripe(stripePublicKey);
+console.log(stripe)
+function stripeChcekout() { 
+    var netTotal = Math.round(parseFloat(document.getElementById('NetTotal').value)*100)
+    console.log(netTotal)
+    var data = JSON.stringify({
+        amount: netTotal,
+    })
+
+    var xhttp = new XMLHttpRequest();
+
+    // xhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         var response = JSON.parse(this.responseText);
+    //         var clientSecret = response.clientSecret;
+
+    //         stripe.redirectToCheckout({
+    //             clientSecret: clientSecret,
+    //         }).then(function(result) {
+    //             if (result.error) {
+    //                 alert(result.error.message);
+    //             }
+    //         });
+    //     }
+    // };
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+            var session = JSON.parse(xhttp.responseText);
+            stripe.redirectToCheckout({ sessionId: session.id })
+            .then(function(result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
+        }
+    };
+
+    xhttp.open("POST", "/checkout", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+    xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+    xhttp.send(data);
+}
+
+
 function showdata() {
     
     if(customerID == ""){

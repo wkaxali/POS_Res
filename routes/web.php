@@ -23,6 +23,7 @@ use App\Http\Controllers\shiftDataController;
 use App\Http\Controllers\deleteFilesController;
 use App\Http\Controllers\thermalprintingController;
 use App\Http\Controllers\companySetupController;
+use App\Http\Controllers\stripeController;
 
 
 /*
@@ -39,6 +40,9 @@ use App\Http\Controllers\companySetupController;
 Route::post('/replaceImage',[deleteFilesController::class, 'replaceImage']);
 Route::post('/addCompanyInfo',[companySetupController::class, 'addCompanyInfo']);
 Route::get('/getCompanyInfo',[companySetupController::class, 'getCompanyInfo']);
+
+Route::post('/checkout',[stripeController::class,'handlePayment']);
+
 
 Route::get('/getMenu/{PCID}',[CUDproduct::class, 'getMenu']);
 Route::get('/getAllInvoices',[saleInvoiceEditController::class, 'getAllInvoices']);
@@ -128,6 +132,15 @@ Route::get('/modifyOrder/{PID}',[shiftDataController::class, 'modifyOrder']);
 Route::get('/thermalPrinting',[thermalprintingController::class, 'thermalPrinting']);
 // Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');
 
+Route::get('/success', function () {
+    // Your logic after successful payment
+    return "success"; // Replace with your success view
+});
+Route::get('/cancelled', function () {
+    // Your logic after successful payment
+    return 'cancelled'; // Replace with your success view
+});
+
 Route::get('/rev', function () {
 
 $value = Session::get('orderReview');
@@ -216,7 +229,7 @@ Route::get('/add', function () {
 });
 
 Route::get('/newmenu', function () {
-    return view('deliveryMenu');
+    return view('deliveryMenu', ['stripeKey' => config('services.stripe.key')]);
     });
 
 Route::get('/', function () {
@@ -318,7 +331,7 @@ Route::get('/ecg', function () {
 
 Route::post ( '/abc', function (Request $request,$data) {
 
-\Stripe\Stripe::setApiKey ( 'sk_test_51Hx51vDF9fotRLlU3yPRSDi1udE8vfZEw0JeqeommznSNcj56IWHjGpQMhR2mvgZPvHkvnVLk0wvuNo40AR2DtlE00PIw1QQez' );
+\Stripe\Stripe::setApiKey (env());
 try {
 \Stripe\Charge::create ( array (
 "amount" => 300 * 100,
