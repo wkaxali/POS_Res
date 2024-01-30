@@ -397,7 +397,7 @@ data-dismiss="modal">Close</button>
           </div>
           <div class="modal-footer">
               <!-- Buttons for actions -->
-              <button type="button" class="btn btn-success" onclick="insertInSales(), stripeChcekout()" id = "saveBtn">Checkout</button>
+              <button type="button" class="btn btn-success" onclick="stripeChcekout()" id = "saveBtn">Checkout</button>
               {{-- <button type="button" class="btn btn-success" onclick="UpdateSaleInvoice()"  id = "updateBtn">Update Invoice</button> --}}
               {{-- <button type="button" class="btn btn-success" onclick="print()">Print</button> --}}
 

@@ -133,12 +133,12 @@ Route::get('/thermalPrinting',[thermalprintingController::class, 'thermalPrintin
 // Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');
 
 Route::get('/success', function () {
-    // Your logic after successful payment
-    return "success"; // Replace with your success view
+
+    return Session::get('invoiceDataForSession'); 
 });
 Route::get('/cancelled', function () {
-    // Your logic after successful payment
-    return 'cancelled'; // Replace with your success view
+    
+    return 'cancelled'; 
 });
 
 Route::get('/rev', function () {
