@@ -18,10 +18,12 @@ use NumberToWords\NumberToWords;
 class serviceSalesFlow extends Controller
 {
     public function SalesFlow(Request $request){
-
-
         $Array=$request->all();
-        // dd($Array);
+        self::insertinSales($Array);
+    }
+    public function insertinSales($invoiceDataArray){
+
+       $Array= $invoiceDataArray;
         $tot=$Array[1];
         
         $OverAllDiscount= $Array[2];
@@ -68,14 +70,14 @@ class serviceSalesFlow extends Controller
         'ReceiversNames'=>$name
         
         ]);
-
+        
         $totlpaid=$AP;
         self::insertInDetailedOrder($Array[0],$invoiceNumber,$dateNow);
         $LID=globalVarriablesController::selfLedgerID();
-       $oldSelfBalance=0; // LedgerPartiesController::getPartyBalance($LID);
-       $oldCustomerBalance=tblCustomerController::getCustomerBalance($CID);
+        $oldSelfBalance=0; // LedgerPartiesController::getPartyBalance($LID);
+        $oldCustomerBalance=tblCustomerController::getCustomerBalance($CID);
        $paidVia=$AID;
-
+       
        $oldCustomerCoins=tblCustomerController::getCustomerCoins($CID);
        $currentCustomerCoins=floatval($oldCustomerCoins)-floatval($coinsUsed);
        tblCustomerController::UpdateCustomerCoins($CID,$currentCustomerCoins);
@@ -90,75 +92,76 @@ class serviceSalesFlow extends Controller
        $newAccountBalance=floatval($OldAccBalance)+floatval($totlpaid);
        
        accountsController::UpdateNewBalance($AID,$newAccountBalance);
-
+       
        $invoiceDetails=self::getAllInvoiceDetails($invoiceNumber);
        
        //session(['invoiceDetails' => $invoiceDetails]);
        $ProductDetailsArray=array();
        $oneProductInInvoice=array();
-
+       
        session(['invoiceNumber' => $invoiceNumber]);
-         foreach($invoiceDetails as $product){
-         $qty=$product->Quantity;
+       foreach($invoiceDetails as $product){
+           $qty=$product->Quantity;
+           
+           $contact=$product->ProductSerial;
+           $customerName=$product->CustomerName;
+           $PID=$product->ProductSerial;
+           $productName=$product->ProductName;
+           $IN=$product->InvoiceNumber;
+           $tax=$product->VAT;
+           $Pt =$product->NetAmount;
+           
+           $unitPrice=$product->PerUnitSalePrice;
+           $CNIC=$product->CNIC;
+           $productName=$product->ProductName;
+           $contact=$product->Contect;
+           $TotalAmount=$product->TotalAmount;
+           $tax=$product->VAT;
+           $Discount=$product->Discount;
+           $NetTotal=$product->NetTotal;
+           $AmountPaid=$product->AmountPaid;
+           $Balance=$product->Balance;
+           $dat=$product->DateStamp;
+           $BillStatus=$product->BillStatus;
+           $AmountPaid=$product->AmountPaid;
+           $InvoiceBalance=$product->Balance;
+           
+           
+           array_push($oneProductInInvoice,$PID,$productName,$qty,$unitPrice,$tax,$Pt);
+           array_push($ProductDetailsArray,$oneProductInInvoice);
+           $oneProductInInvoice=array();
+           
+           session(['unitPrice' => $unitPrice]);
+           session(['qty' => $qty]);
+           session(['coinsDiscount' => $coinsDiscount]);
+           session(['ProductNames' => $ProductDetailsArray]);
+           session(['ivd' => $dat]);
+           session(['iu' => $IN]);
+           session(['customerID' => $CID]);
+           session(['customerName' => $customerName]);
+           session(['contact' => $contact]);
+           session(['model' => $productName]);
+           session(['invoiceNo' => $invoiceNumber]);
+           session(['CNIC' => $CNIC]);
+           session(['tax' => $tax]);
+           session(['total' => $TotalAmount]);
+           session(['netTotal' => $netTotal]);
+           session(['InvBalance' => $InvoiceBalance]);
+           session(['amountPaid' =>  number_format($AmountPaid)]);
+           session(['overallDiscount' => $Discount]);
+           
+           $numberToWords = new NumberToWords();
+           $numberTransformer = $numberToWords->getNumberTransformer('en');
+           $a= $numberTransformer->toWords($AmountPaid);
+           session(['amountInWords' => ucwords($a)]);
+        }
         
-         $contact=$product->ProductSerial;
-         $customerName=$product->CustomerName;
-         $PID=$product->ProductSerial;
-         $productName=$product->ProductName;
-         $IN=$product->InvoiceNumber;
-         $tax=$product->VAT;
-        $Pt =$product->NetAmount;
-         
-         $unitPrice=$product->PerUnitSalePrice;
-         $CNIC=$product->CNIC;
-         $productName=$product->ProductName;
-         $contact=$product->Contect;
-         $TotalAmount=$product->TotalAmount;
-         $tax=$product->VAT;
-         $Discount=$product->Discount;
-         $NetTotal=$product->NetTotal;
-         $AmountPaid=$product->AmountPaid;
-         $Balance=$product->Balance;
-         $dat=$product->DateStamp;
-         $BillStatus=$product->BillStatus;
-         $AmountPaid=$product->AmountPaid;
-         $InvoiceBalance=$product->Balance;
-
-         
-         array_push($oneProductInInvoice,$PID,$productName,$qty,$unitPrice,$tax,$Pt);
-         array_push($ProductDetailsArray,$oneProductInInvoice);
-         $oneProductInInvoice=array();
+        loyaltyManagmentController::billToRewardsConversion($AmountPaid, $TID, $CID);
+        // dd($invoiceNumber);
         
-         session(['unitPrice' => $unitPrice]);
-         session(['qty' => $qty]);
-         session(['coinsDiscount' => $coinsDiscount]);
-         session(['ProductNames' => $ProductDetailsArray]);
-         session(['ivd' => $dat]);
-         session(['iu' => $IN]);
-         session(['customerID' => $CID]);
-         session(['customerName' => $customerName]);
-         session(['contact' => $contact]);
-         session(['model' => $productName]);
-         session(['invoiceNo' => $invoiceNumber]);
-         session(['CNIC' => $CNIC]);
-         session(['tax' => $tax]);
-         session(['total' => $TotalAmount]);
-         session(['netTotal' => $netTotal]);
-         session(['InvBalance' => $InvoiceBalance]);
-         session(['amountPaid' =>  number_format($AmountPaid)]);
-         session(['overallDiscount' => $Discount]);
-
-         $numberToWords = new NumberToWords();
-            $numberTransformer = $numberToWords->getNumberTransformer('en');
-            $a= $numberTransformer->toWords($AmountPaid);
-          session(['amountInWords' => ucwords($a)]);
-      }
-
-      loyaltyManagmentController::billToRewardsConversion($AmountPaid, $TID, $CID);
-      
-  return $invoiceNumber;
+        return $invoiceNumber;
     }
-        //insert into order details
+    //insert into order details
         //inster in transaction Flow
         //update customer balance
         //frf())

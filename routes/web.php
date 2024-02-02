@@ -42,6 +42,9 @@ Route::post('/addCompanyInfo',[companySetupController::class, 'addCompanyInfo'])
 Route::get('/getCompanyInfo',[companySetupController::class, 'getCompanyInfo']);
 
 Route::post('/checkout',[stripeController::class,'handlePayment']);
+Route::post('/stripe/webhook',[stripeController::class,'handleWebHook']);
+Route::get('/success',[stripeController::class,'success']);
+Route::get('/cancelled',[stripeController::class,'cancelled']);
 
 
 Route::get('/getMenu/{PCID}',[CUDproduct::class, 'getMenu']);
@@ -132,14 +135,7 @@ Route::get('/modifyOrder/{PID}',[shiftDataController::class, 'modifyOrder']);
 Route::get('/thermalPrinting',[thermalprintingController::class, 'thermalPrinting']);
 // Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');
 
-Route::get('/success', function () {
 
-    return Session::get('invoiceDataForSession'); 
-});
-Route::get('/cancelled', function () {
-    
-    return 'cancelled'; 
-});
 
 Route::get('/rev', function () {
 

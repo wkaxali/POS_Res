@@ -2,7 +2,9 @@
 namespace App\Http\Controllers;
 
 use Stripe\Stripe;
+use Stripe\Webhook;
 use Illuminate\Http\Request;
+use App\Http\Controllers\serviceSalesFlow;
 
 class stripeController extends Controller
 {
@@ -19,7 +21,7 @@ class stripeController extends Controller
                 'product_data' => [
                     'name' => 'Your Product Name',
                 ],
-                'unit_amount' => intval($request->amount), // Amount in smallest currency unit
+                'unit_amount' => intval($request->amount),
             ],
             'quantity' => 1,
         ]],
@@ -32,13 +34,49 @@ class stripeController extends Controller
     return response()->json(['id' => $session->id]);
 
     }
+    
     public function success(){
-
-        echo"payment Sucessfull";
+        // dd(session()->get('invoiceDataForSession'));
+        echo strval(session(['invoiceNumber']))," has been added!";
     }
     public function cancelled(){
         echo"payment cancelled";
 
+    }
+
+    public function handleWebHook(Request $request){
+        try {
+            $payload = $request->getContent();
+            $sigHeader = $request->header('Stripe-Signature');
+            $endpointSecret = config('services.stripe.webhook_secret');
+    
+            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
+    
+            switch ($event->type) {
+                case 'checkout.session.completed':
+                    $sessionData = session()->get('invoiceDataForSession');
+                    serviceSalesFlow::insertinSales($sessionData);
+
+
+                    // Store order receipt in the database
+                    // $invoiceData = session('invoiceDataForSession');
+                    // OrderReceipt::create([
+                    //     'payment_intent_id' => $paymentIntent->id,
+                    //     'invoice_data' => $invoiceData,
+
+                    // ]);
+
+
+                    session()->forget('invoiceDataForSession');
+                    return response()->json(['success' => true]);
+                default:
+
+                    return response()->json(['success' => true]);
+            }
+    
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
 }
