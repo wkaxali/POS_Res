@@ -5,13 +5,16 @@ use Stripe\Stripe;
 use Stripe\Webhook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\serviceSalesFlow;
+use Illuminate\Support\Str;
 
 class stripeController extends Controller
 {
     public function handlePayment(Request $request)
 
     {
-        session(['invoiceDataForSession' => $request->invoiceDataForSession]);
+        $uuid = Str::uuid();
+        cache(['invoiceData_' . $uuid => $request->invoiceDataForSession], 60);
+        // session()->put('invoiceDataForSession', $request->invoiceDataForSession);
         Stripe::setApiKey(config('services.stripe.secret'));
         $session = \Stripe\Checkout\Session::create([
         'payment_method_types' => ['card'],
@@ -26,18 +29,23 @@ class stripeController extends Controller
             'quantity' => 1,
         ]],
         'mode' => 'payment',
-        'success_url' => url('/success') ,
+        'success_url' => url('/success'),
         'cancel_url' => url('/cancelled'),
+        'metadata' => [
+            'uuid' => $uuid,
+            'laravelSessionID' => session()->getID(),
+        ],
     ]);
+    // dd(cache('invoiceData_' . $uuid));
     
-    
-    return response()->json(['id' => $session->id]);
+    return response()->json(['id' => $session->id, 'laravelSessionID'=>session()->getID()]);
 
     }
     
-    public function success(){
-        // dd(session()->get('invoiceDataForSession'));
-        echo strval(session(['invoiceNumber']))," has been added!";
+    public function success(Request $request){
+        $invoiceNumber = session('invoiceNumber');
+        dd($invoiceNumber);
+        
     }
     public function cancelled(){
         echo"payment cancelled";
@@ -51,27 +59,21 @@ class stripeController extends Controller
             $endpointSecret = config('services.stripe.webhook_secret');
     
             $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
-    
             switch ($event->type) {
                 case 'checkout.session.completed':
-                    $sessionData = session()->get('invoiceDataForSession');
-                    serviceSalesFlow::insertinSales($sessionData);
-
-
-                    // Store order receipt in the database
-                    // $invoiceData = session('invoiceDataForSession');
-                    // OrderReceipt::create([
-                    //     'payment_intent_id' => $paymentIntent->id,
-                    //     'invoice_data' => $invoiceData,
-
-                    // ]);
-
-
-                    session()->forget('invoiceDataForSession');
-                    return response()->json(['success' => true]);
+                    $uuid = $event->data->object->metadata->uuid;
+                    $laravelSessionID = $event->data->object->metadata->laravelSessionID;
+                    session()->setId($laravelSessionID);
+                    // dd($laravelSessionID);
+                    $invoiceData = cache('invoiceData_' . $uuid);
+                    $salesFlow = new serviceSalesFlow();
+                    $invoiceNumber = $salesFlow->insertinSales($invoiceData);
+                    cache()->forget('invoiceData_' . $uuid);
+                    return response()->json(['success' => true,'redirect' => url('/success')]);
+                case 'payment_intent.payment_failed':
+                    return response()->json(['success' => true, 'redirect' => url('/cancelled')]);
                 default:
-
-                    return response()->json(['success' => true]);
+                return response()->json(['success' => true]);
             }
     
         } catch (\Exception $e) {

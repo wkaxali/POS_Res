@@ -19,11 +19,10 @@ class serviceSalesFlow extends Controller
 {
     public function SalesFlow(Request $request){
         $Array=$request->all();
-        self::insertinSales($Array);
+        return self::insertinSales($Array);
     }
     public function insertinSales($invoiceDataArray){
-
-       $Array= $invoiceDataArray;
+        $Array= $invoiceDataArray;
         $tot=$Array[1];
         
         $OverAllDiscount= $Array[2];
@@ -76,13 +75,13 @@ class serviceSalesFlow extends Controller
         $LID=globalVarriablesController::selfLedgerID();
         $oldSelfBalance=0; // LedgerPartiesController::getPartyBalance($LID);
         $oldCustomerBalance=tblCustomerController::getCustomerBalance($CID);
-       $paidVia=$AID;
-       
-       $oldCustomerCoins=tblCustomerController::getCustomerCoins($CID);
-       $currentCustomerCoins=floatval($oldCustomerCoins)-floatval($coinsUsed);
-       tblCustomerController::UpdateCustomerCoins($CID,$currentCustomerCoins);
-       
-       $currentCustomerBalance=floatval($oldCustomerBalance)+floatval($RBI);
+        $paidVia=$AID;
+        
+        $oldCustomerCoins=tblCustomerController::getCustomerCoins($CID);
+        $currentCustomerCoins=floatval($oldCustomerCoins)-floatval($coinsUsed);
+        tblCustomerController::UpdateCustomerCoins($CID,$currentCustomerCoins);
+        
+        $currentCustomerBalance=floatval($oldCustomerBalance)+floatval($RBI);
        tblCustomerController::UpdateCustomerBalance($CID,$currentCustomerBalance);
        $selfBalance=floatval($oldSelfBalance)+floatval($totlpaid);
        //LedgerPartiesController::UpdatePartiesBalance($LID,$selfBalance);
@@ -157,7 +156,7 @@ class serviceSalesFlow extends Controller
         }
         
         loyaltyManagmentController::billToRewardsConversion($AmountPaid, $TID, $CID);
-        // dd($invoiceNumber);
+        dd(session()->getID());
         
         return $invoiceNumber;
     }
