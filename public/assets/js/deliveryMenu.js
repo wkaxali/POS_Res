@@ -641,7 +641,6 @@ function stripeChcekout() {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
             var session = JSON.parse(xhttp.responseText);
-            console.log(session.laravelsessionID)
             stripe.redirectToCheckout({ sessionId: session.id })
             .then(function(result) {
                 if (result.error) {

@@ -449,9 +449,10 @@ data-dismiss="modal">Close</button>
   <!-- custom js -->
   <script src="https://js.stripe.com/v3/"></script>
   <script type="text/javascript">
+    var sessionID = "{{ $sessionID }}"
     var stripePublicKey = "{{ $stripeKey }}";
-    console.log(stripePublicKey)
     const stripe = Stripe(stripePublicKey);
+    console.log(sessionID)
     </script>
     <script src="{{asset('assets/js/deliveryMenu.js')}}"></script>
 </body>

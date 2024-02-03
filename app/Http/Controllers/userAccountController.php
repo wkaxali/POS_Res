@@ -180,8 +180,10 @@ class userAccountController extends Controller
         $data = $request->all();
         // dd($data[0]);
         if($data!="0"){
-        session()->forget('UserID');
-
+        // session()->forget('UserID');
+        // session()->forget('userName');
+        session()->flush();
+        
 
         return "User $data[0] is Logged Out";
         }

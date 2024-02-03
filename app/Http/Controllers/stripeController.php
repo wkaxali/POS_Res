@@ -6,6 +6,8 @@ use Stripe\Webhook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\serviceSalesFlow;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class stripeController extends Controller
 {
@@ -33,18 +35,25 @@ class stripeController extends Controller
         'cancel_url' => url('/cancelled'),
         'metadata' => [
             'uuid' => $uuid,
-            'laravelSessionID' => session()->getID(),
         ],
     ]);
-    // dd(cache('invoiceData_' . $uuid));
     
     return response()->json(['id' => $session->id, 'laravelSessionID'=>session()->getID()]);
 
     }
     
     public function success(Request $request){
-        $invoiceNumber = session('invoiceNumber');
-        dd($invoiceNumber);
+        $cachedData = Cache::get('session_data');
+        if ($cachedData) {
+            $invoiceInfo = array_slice($cachedData, 1, 31, true);
+            // $existingSessionData = session()->all();
+            // dd($existingSessionData);
+            // $mergedData = array_merge($existingSessionData, $invoiceInfo);
+            // Session::put($mergedData);
+            session(['invoiceDetails'=>$invoiceInfo]);
+        }
+        $array = session()->all();
+        dd($array['invoiceDetails']['invoiceNo']);
         
     }
     public function cancelled(){
@@ -62,12 +71,10 @@ class stripeController extends Controller
             switch ($event->type) {
                 case 'checkout.session.completed':
                     $uuid = $event->data->object->metadata->uuid;
-                    $laravelSessionID = $event->data->object->metadata->laravelSessionID;
-                    session()->setId($laravelSessionID);
                     // dd($laravelSessionID);
                     $invoiceData = cache('invoiceData_' . $uuid);
                     $salesFlow = new serviceSalesFlow();
-                    $invoiceNumber = $salesFlow->insertinSales($invoiceData);
+                    $invoiceNumber = $salesFlow->insertinSalesforDelivery($invoiceData);
                     cache()->forget('invoiceData_' . $uuid);
                     return response()->json(['success' => true,'redirect' => url('/success')]);
                 case 'payment_intent.payment_failed':
