@@ -44,7 +44,7 @@ class stripeController extends Controller
     
     public function success(Request $request){
         $cachedData = Cache::get('session_data');
-        if ($cachedData) {
+        if ($cachedData!=null) {
             $invoiceInfo = array_slice($cachedData, 1, 31, true);
             // $existingSessionData = session()->all();
             // dd($existingSessionData);
@@ -52,8 +52,9 @@ class stripeController extends Controller
             // Session::put($mergedData);
             session(['invoiceDetails'=>$invoiceInfo]);
         }
-        $array = session()->all();
-        dd($array['invoiceDetails']['invoiceNo']);
+        $invoiceData = session('invoiceDetails');
+         return view('orderPlacedSuccessfully', ['invoiceData' => $invoiceData ]);
+
         
     }
     public function cancelled(){

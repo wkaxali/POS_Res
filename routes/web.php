@@ -225,7 +225,7 @@ Route::get('/add', function () {
 });
 
 Route::get('/newmenu', function () {
-    return view('deliveryMenu', ['stripeKey' => config('services.stripe.key'),'sessionID'=>session()->getID()]);
+    return view('deliveryMenu', ['stripeKey' => config('services.stripe.key'),'sessionID'=>print_r(session()->all(),true)]);
     });
 
 Route::get('/', function () {
