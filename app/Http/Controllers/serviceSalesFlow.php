@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Cache;
 
 class serviceSalesFlow extends Controller
 {
-    public function SalesFlow($invoiceDataArray){
+    public function SalesFlow(Request $request){
         $Array=$request->all();
-        $Array= $invoiceDataArray;
+        
         $tot=$Array[1];
         
         $OverAllDiscount= $Array[2];
