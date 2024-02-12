@@ -38,7 +38,7 @@ class stripeController extends Controller
         ],
     ]);
     $invoiceData = cache('invoiceData_' . $uuid);
-                    dd($request->invoiceDataForSession);
+                    // dd($request->invoiceDataForSession);
     return response()->json(['id' => $session->id, 'laravelSessionID'=>session()->getID()]);
 
     }
@@ -75,7 +75,6 @@ class stripeController extends Controller
                 case 'checkout.session.completed':
                     $uuid = $event->data->object->metadata->uuid;
                     $invoiceData = cache('invoiceData_' . $uuid);
-                    dd($invoiceData);
                     $salesFlow = new serviceSalesFlow();
                     $invoiceNumber = $salesFlow->insertinSalesforDelivery($invoiceData);
                     cache()->forget('invoiceData_' . $uuid);
