@@ -623,17 +623,15 @@ function stripeChcekout() {
     }
     else if (amp == "") {
         alert('Please fill "Amount Paid" Field');
-    } else {
-        myRow2 = [myTrows, tot, discount, gross, tax, netTotal, amp, rmb, CID, CLB, CCB, AID, coinsDiscount, coinsUsed, name];
-
     }
+    myRow2 = [myTrows, tot, discount, gross, tax, netTotal, amp, rmb, CID, CLB, CCB, AID, coinsDiscount, coinsUsed, name];
     
     var netTotal = Math.round(parseFloat(document.getElementById('NetTotal').value)*100)
-    console.log(netTotal)
+    console.log(myRow2)
     var data = JSON.stringify({
         amount: netTotal,
+        
         'invoiceDataForSession': myRow2,
-
     })
 
     var xhttp = new XMLHttpRequest();

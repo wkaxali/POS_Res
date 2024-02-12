@@ -15,7 +15,7 @@ class stripeController extends Controller
 
     {
         $uuid = Str::uuid();
-        cache(['invoiceData_' . $uuid => $request->invoiceDataForSession], 60);
+        cache(['invoiceData_' . $uuid => $request->invoiceDataForSession], 600);
         // session()->put('invoiceDataForSession', $request->invoiceDataForSession);
         Stripe::setApiKey(config('services.stripe.secret'));
         $session = \Stripe\Checkout\Session::create([
@@ -37,7 +37,8 @@ class stripeController extends Controller
             'uuid' => $uuid,
         ],
     ]);
-    
+    $invoiceData = cache('invoiceData_' . $uuid);
+                    dd($request->invoiceDataForSession);
     return response()->json(['id' => $session->id, 'laravelSessionID'=>session()->getID()]);
 
     }
@@ -69,11 +70,12 @@ class stripeController extends Controller
             $endpointSecret = config('services.stripe.webhook_secret');
     
             $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
+            // dd($event->data->object->metadata);
             switch ($event->type) {
                 case 'checkout.session.completed':
                     $uuid = $event->data->object->metadata->uuid;
-                    // dd($laravelSessionID);
                     $invoiceData = cache('invoiceData_' . $uuid);
+                    dd($invoiceData);
                     $salesFlow = new serviceSalesFlow();
                     $invoiceNumber = $salesFlow->insertinSalesforDelivery($invoiceData);
                     cache()->forget('invoiceData_' . $uuid);
@@ -85,6 +87,7 @@ class stripeController extends Controller
             }
     
         } catch (\Exception $e) {
+            // dd("hello");
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
