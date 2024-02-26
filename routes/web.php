@@ -229,7 +229,8 @@ Route::get('/newmenu', function () {
     });
 
 Route::get('/', function () {
-return view('index');
+    return view('deliveryMenu', ['stripeKey' => config('services.stripe.key'),'sessionID'=>print_r(session()->all(),true)]);
+
 });
 
 Route::get('/si', function () {

@@ -563,96 +563,102 @@ function userlogout() {
     }
 }
 // const stripe = Stripe(stripePublicKey);
-console.log(stripe)
+
 function stripeChcekout() { 
+    if (customerID == "") {
+        window.location.href = '/up';
 
-    var myTrows = [];
-    var table = document.getElementById("ProductSaleTable");
-    var myRow2 = [];
-    $('#ProductSaleTable tr').each(function (row, tr) {
-        myTrows[row] = [
-            $(tr).find('td:eq(0)').text(), //productID
-            $(tr).find('td:eq(2)').text(), //salePrice
-            $(tr).find('td:eq(3) input[type="text"]').val(), //qty
-            $(tr).find('td:eq(4) input[type="text"]').val(), //discount
-            $(tr).find('td:eq(5)').text() //totamount
-        ];
-    });
-    myTrows.shift();
-    //var invoiceNumber=getInvoiceID();
-    var tot = document.getElementById("Total").value;
-    
-    var discount = document.getElementById('DiscountOverall').value;
-    if (discount == "") {
-
-        discount = 0;
-        document.getElementById('DiscountOverall').value = 0;
-
-    }
-    
-    var CoinsToBeUsed = document.getElementById('CoinsToBeUsed').value;
-    var name = $('#CustomerName').text();
-    var gross = document.getElementById('grossTotal').value;
-    var tax = document.getElementById('tax').value;
-    var netTotal = document.getElementById('NetTotal').value;
-    var amp = document.getElementById('AmountPaid').value;
-    var rmb = document.getElementById("RemainingBalance").value;
-    var CID = customerID
-    var CLB = document.getElementById("LastBalance").value;
-    var CCB = document.getElementById("CurrentBalance").value;
-    var coinsDiscount = document.getElementById("coinsDiscounts").value;
-    var coinsUsed = document.getElementById("CoinsToBeUsed").value;
-    var AID = 1; //$('#accounts').find(":selected").val();
-   
-    if (tax == "") {
-        document.getElementById('tax').value = 0;
-    }
-    
-    if (AID == "") {
-        alert("Payment Method not selected");
-    } else if (name == " ") {
-        alert("Customer not selected");
-    } else if (myTrows == "") {
-        alert("Please Select a Product");
-    } else if (coinsUsed == "" || coinsUsed == undefined || coinsUsed == null) {
-        coinsUsed = 0;
-    } else if (coinsDiscount == "" || coinsDiscount == undefined || coinsDiscount == null) {
-        coinsDiscount = 0;
-    } else if (CoinsToBeUsed == "" || CoinsToBeUsed == undefined || CoinsToBeUsed == null) {
-        CoinsToBeUsed = 0;
-    }
-    else if (amp == "") {
-        alert('Please fill "Amount Paid" Field');
-    }
-    myRow2 = [myTrows, tot, discount, gross, tax, netTotal, amp, rmb, CID, CLB, CCB, AID, coinsDiscount, coinsUsed, name];
-    
-    var netTotal = Math.round(parseFloat(document.getElementById('NetTotal').value)*100)
-    console.log(myRow2)
-    var data = JSON.stringify({
-        amount: netTotal,
         
-        'invoiceDataForSession': myRow2,
-    })
-
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function () {
-        if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-            var session = JSON.parse(xhttp.responseText);
-            stripe.redirectToCheckout({ sessionId: session.id })
-            .then(function(result) {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            });
+        
+    } else { var myTrows = [];
+        var table = document.getElementById("ProductSaleTable");
+        var myRow2 = [];
+        $('#ProductSaleTable tr').each(function (row, tr) {
+            myTrows[row] = [
+                $(tr).find('td:eq(0)').text(), //productID
+                $(tr).find('td:eq(2)').text(), //salePrice
+                $(tr).find('td:eq(3) input[type="text"]').val(), //qty
+                $(tr).find('td:eq(4) input[type="text"]').val(), //discount
+                $(tr).find('td:eq(5)').text() //totamount
+            ];
+        });
+        myTrows.shift();
+        //var invoiceNumber=getInvoiceID();
+        var tot = document.getElementById("Total").value;
+        
+        var discount = document.getElementById('DiscountOverall').value;
+        if (discount == "") {
+    
+            discount = 0;
+            document.getElementById('DiscountOverall').value = 0;
+    
         }
-    };
+        
+        var CoinsToBeUsed = document.getElementById('CoinsToBeUsed').value;
+        var name = $('#CustomerName').text();
+        var gross = document.getElementById('grossTotal').value;
+        var tax = document.getElementById('tax').value;
+        var netTotal = document.getElementById('NetTotal').value;
+        var amp = document.getElementById('AmountPaid').value;
+        var rmb = document.getElementById("RemainingBalance").value;
+        var CID = customerID
+        var CLB = document.getElementById("LastBalance").value;
+        var CCB = document.getElementById("CurrentBalance").value;
+        var coinsDiscount = document.getElementById("coinsDiscounts").value;
+        var coinsUsed = document.getElementById("CoinsToBeUsed").value;
+        var AID = 1; //$('#accounts').find(":selected").val();
+       
+        if (tax == "") {
+            document.getElementById('tax').value = 0;
+        }
+        
+        if (AID == "") {
+            alert("Payment Method not selected");
+        } else if (name == " ") {
+            alert("Customer not selected");
+        } else if (myTrows == "") {
+            alert("Please Select a Product");
+        } else if (coinsUsed == "" || coinsUsed == undefined || coinsUsed == null) {
+            coinsUsed = 0;
+        } else if (coinsDiscount == "" || coinsDiscount == undefined || coinsDiscount == null) {
+            coinsDiscount = 0;
+        } else if (CoinsToBeUsed == "" || CoinsToBeUsed == undefined || CoinsToBeUsed == null) {
+            CoinsToBeUsed = 0;
+        }
+        else if (amp == "") {
+            alert('Please fill "Amount Paid" Field');
+        }
+        myRow2 = [myTrows, tot, discount, gross, tax, netTotal, amp, rmb, CID, CLB, CCB, AID, coinsDiscount, coinsUsed, name];
+        
+        var netTotal = Math.round(parseFloat(document.getElementById('NetTotal').value)*100)
+        console.log(myRow2)
+        var data = JSON.stringify({
+            amount: netTotal,
+            
+            'invoiceDataForSession': myRow2,
+        })
+    
+        var xhttp = new XMLHttpRequest();
+    
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                var session = JSON.parse(xhttp.responseText);
+                stripe.redirectToCheckout({ sessionId: session.id })
+                .then(function(result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                });
+            }
+        };
+    
+        xhttp.open("POST", "/checkout", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+        xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+        xhttp.send(data);}
 
-    xhttp.open("POST", "/checkout", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-    xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
-    xhttp.send(data);
+    
 }
 
 console.log(customerID)
