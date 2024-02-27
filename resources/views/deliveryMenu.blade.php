@@ -253,12 +253,12 @@
                       <table class="table" id="ProductSaleTable">
                           <thead>
                               <tr>
-                                  <th>Product ID</th>
+                                  <th class="invisible-div">Product ID</th>
                                   <th>Product Name</th>
                                   <!-- <th >Company</th> -->
                                   <th>Sale Price</th>
                                   <th>Quantity</th>
-                                  <th>Discount</th>
+                                  <th class="invisible-div" >Discount</th>
                                   <th>Total</th>
                                   <th>Action</th>
                               </tr>
@@ -379,11 +379,11 @@ data-dismiss="modal">Close</button>
                             <div class="col-sm">Coins Disc:</div>
                             <div class="col-sm-6"><input class = "form-control" type="text"  id="coinsDiscounts" onchange="calc()" readonly></div>
                         </div>
-                        <div class="row">
+                        <div class="row invisible-div">
                             <div class="col-sm">Discount:</div>
                             <div class="col-sm-6"><input class = "form-control" type="text" id="DiscountOverall" onchange="calc()" ></div>
                         </div>
-                        <div class="row">
+                        <div class="row invisible-div">
                             <div class="col-sm">Tax%:</div>
                             <div class="col-sm-6"><input class = "form-control" type="text" id="tax" onchange="calc()" ></div>
                         </div>

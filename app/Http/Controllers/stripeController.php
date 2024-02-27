@@ -54,8 +54,8 @@ class stripeController extends Controller
             session(['invoiceDetails'=>$invoiceInfo]);
         }
         $invoiceData = session('invoiceDetails');
-         return view('orderPlacedSuccessfully', ['invoiceData' => $invoiceData ]);
-
+        //  return view('orderPlacedSuccessfully', ['invoiceData' => $invoiceData ]);
+        return view('OrderTracking');
         
     }
     public function cancelled(){

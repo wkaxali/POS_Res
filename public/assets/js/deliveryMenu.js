@@ -432,7 +432,11 @@ function addProduct(PID, pName, salePrice, companyName, purchasePrice) {
         cell7.innerHTML =
                 "<button id='DelButton'class=\"btn btn-danger\" style=\"height: 25px;\" value='x' text='x' onclick='RemoveThisRow(this)'></button>";
             cell8.innerHTML = purchasePrice;
-            cell8.style.display = 'none';
+        cell8.style.display = 'none';
+        cell1.style.display = 'none';
+        cell5.style.display = 'none';
+
+        
 
     } else {
         alert("Quantity Increased");
@@ -545,7 +549,7 @@ function userlogout() {
     else {
         
     
-        console.log(lg)
+        // console.log(lg)
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -631,7 +635,7 @@ function stripeChcekout() {
         myRow2 = [myTrows, tot, discount, gross, tax, netTotal, amp, rmb, CID, CLB, CCB, AID, coinsDiscount, coinsUsed, name];
         
         var netTotal = Math.round(parseFloat(document.getElementById('NetTotal').value)*100)
-        console.log(myRow2)
+        // console.log(myRow2)
         var data = JSON.stringify({
             amount: netTotal,
             
@@ -661,7 +665,7 @@ function stripeChcekout() {
     
 }
 
-console.log(customerID)
+// console.log(customerID)
 function showdata() {
     
     if(customerID == ""){
