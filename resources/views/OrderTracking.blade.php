@@ -48,7 +48,19 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
       </header>
 
     <main class="mainHeader">
-   
+      
+      @php
+      $i = Session::get('invoiceDetails.ProductNames');
+      @endphp
+
+      @if(empty($i))
+      <div class="internalHeader3">
+        <h1>No recent order has been placed.</h1>
+        <br><br><br><br><br><br><br><br><br><br>
+        <a class="orderPlaced" href="/">Place an Order</a>
+
+      </div>
+      @else
     <div class="internalHeader1">
 
         <div><h1>Your order has been placed</h1></div>
@@ -72,9 +84,7 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $i = Session::get('invoiceDetails.ProductNames');
-                    @endphp
+
                 @foreach ($i as $m)
                 <tr>
                 <td>{{ $m[1] }}</td>
@@ -95,6 +105,7 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
             </thead>
         </table>
     </div>
+    @endif
 
 </main>
 

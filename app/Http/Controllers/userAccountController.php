@@ -51,7 +51,7 @@ class userAccountController extends Controller
         $contact=$obj[1];
         $email=$obj[2];
         $password=$obj[3];
-        $rePassword=$obj[4];
+        // $rePassword=$obj[4];
 
         $CustomerCheck = DB::table('customeinformation')
         ->where([['Contect', '=', $contact]]);

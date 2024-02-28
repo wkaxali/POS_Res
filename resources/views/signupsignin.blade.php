@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>Khyber Pass</title>
+	<title>SignUp Page</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 
 	<style>
@@ -279,7 +279,7 @@
 
 <body onload="preFillFields()">
 <input type="text" placeholder="serverName" id="servername" style="display:none"
-
+	
 />
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">

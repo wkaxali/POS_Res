@@ -1193,7 +1193,24 @@ a:focus {
         box-shadow: 10px 10px 30px 2px rgba(0, 0, 0, 0.75);
         border-radius: 5%;
         }
-    
+        .internalHeader3 {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+      
+          align-items: center;
+          /* border: 1% solid #333; */
+          width: 30%;
+          margin: auto;
+          margin-top: 3%;
+          margin-bottom: 3%;
+          padding: 1%;
+          -webkit-box-shadow: 10px 10px 30px 2px rgba(0, 0, 0, 0.75);
+          -moz-box-shadow: 10px 10px 30px 2px rgba(0, 0, 0, 0.75);
+          box-shadow: 10px 10px 30px 2px rgba(0, 0, 0, 0.75);
+          border-radius: 10px;
+          }
+      
     #orderID {
     font-weight: 1000;
     font-size:xx-large;
@@ -1222,4 +1239,22 @@ a:focus {
 .dateClass{
     margin: auto;
     /* margin-left: 1%; */
+}
+
+.orderPlaced{
+  font-family: "Open Sans", sans-serif;
+  font-size: xx-large;
+  font-weight: 500;
+  background: linear-gradient(to right, #0a0a0a, #333);
+  color: white;
+  position: relative;
+  padding: 7px 7px;
+  /* color: #0c0c0c; */
+  /* background-color: #ffffff; */
+  border-radius: 10px;
+}
+.orderPlaced:hover{
+
+  color: #ffbe33;
+
 }

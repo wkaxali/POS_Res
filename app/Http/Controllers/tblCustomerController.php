@@ -117,7 +117,25 @@ class tblCustomerController extends Controller
     }
 
 
-    
+    public static function updateCustomerDetails(Request $request){
+        $ata=$request->all();
+        $CID = $ata['CID'];
+        $customerName = $ata['customerName'];
+        $contact = $ata['contact'];
+        $password = $ata['password'];
+        $address = $ata['address'];
+
+        $re = DB::table('customeinformation')
+        ->where('CustomerID', $CID)
+        ->update([
+          'CustomerName'=>$customerName,
+          'Contect'=>$contact,
+          'Password'=>$password,
+          'Address'=>$address
+          ]);
+
+          return $CID;
+        }
     public static function editCustomer(Request $request){
         $ata=$request->all();
         $CID = $ata['CID'];

@@ -131,6 +131,8 @@ Route::post('/editCategory',[menuController::class, 'editCategoryName']);
 Route::get('/getOrderStatus',[orderViewController::class, 'getOrderStatus']);
 Route::get('/getCustomers',[tblCustomerController::class, 'getCustomers']);
 Route::post('/editCustomer',[tblCustomerController::class, 'editCustomer']);
+Route::post('/updateCustomerDetails',[tblCustomerController::class, 'updateCustomerDetails']);
+
 Route::get('/modifyOrder/{PID}',[shiftDataController::class, 'modifyOrder']);
 Route::get('/thermalPrinting',[thermalprintingController::class, 'thermalPrinting']);
 // Route::get('/testpdf/as',[printServiceSaleInvoice::class, 'afterSalesServicePrint'])->middleware('api.access');
@@ -467,7 +469,7 @@ Route::get('/userProfile', function () {
     if($UN=="Admin" || $customerID!=""){
     return view("userProfileView");
     }else{
-    return view("signInSignUp");
+    return view("signupsignin");
     }
     });
 
