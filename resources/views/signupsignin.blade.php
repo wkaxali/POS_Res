@@ -65,6 +65,7 @@
 			letter-spacing: 1px;
 			text-transform: uppercase;
 			transition: transform 80ms ease-in;
+			cursor: pointer;
 		}
 
 		button:active {
@@ -278,9 +279,8 @@
 </head>
 
 <body onload="preFillFields()">
-<input type="text" placeholder="serverName" id="servername" style="display:none"
-	
-/>
+<input type="text" placeholder="serverName" id="servername" style="display:none"/>
+
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
 			<div class="reform">
@@ -309,7 +309,7 @@
 					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 				</div>
 				<span style="visibility: hidden;">or use your account</span>
-				<input type="text" placeholder="User Email or Comtact" id="login"/>
+				<input type="text" placeholder="User Email or Contact" id="login"/>
 				<input type="password" placeholder="Password" id="password"/>
 				<a href="#">Forgot your password?</a>
 				<button onclick="signIn()">Sign In</button>
@@ -323,8 +323,8 @@
 					<button class="ghost" id="signIn" >Sign In</button>
 				</div>
 				<div class="overlay-panel overlay-right">
-					<h1>Welcome To Khyber Pass!</h1>
-					<p>Enter your personal details and start journey with us</p>
+					<h1 id="headerTitle">Welcome To Khyber Pass!</h1>
+					<p>Enter your personal details and start your journey with us</p>
 					<button class="ghost" id="signUp">Sign Up</button>
 				</div>
 			</div>
@@ -377,6 +377,22 @@
     xhttp.send(data);
         }
 
+		function getCompanyName(){
+   
+   var xhttp = new XMLHttpRequest();
+   xhttp.onreadystatechange = function () {
+
+		 if (this.readyState == 4 && this.status == 200) {
+			 var data= JSON.parse(this.responseText);
+			 document.title = data[0]['CompanyName']
+			 document.getElementById("headerTitle").innerHTML = "Welcome To "+data[0]['CompanyName']+"!"
+		 }
+	 };
+	
+	 xhttp.open("GET", "./getCompanyInfo/", true);
+
+	 xhttp.send();
+	}
 		function passwordCheck(){
 			var pass1 = document.getElementById('signUpPassword').value;
 			var pass2 = document.getElementById('rePassword').value;
@@ -422,6 +438,7 @@
 
 
 		function preFillFields() {
+			getCompanyName()
             var hashParams = window.location.hash.substr(1).split('&');
             for (var i = 0; i < hashParams.length; i++) {
                 var p = hashParams[i].split('=');
