@@ -191,7 +191,7 @@ class saleInvoiceEditController extends Controller
           
       }
 
-public function updateBalnce($AP,$RBI){
+public function updateBalnce($AP,$RBI, $cumstomerBalance,$CID){
 
   $LID=globalVarriablesController::selfLedgerID();
 

@@ -140,7 +140,7 @@ class AddMenucontroller extends Controller
         $MenuTable="";
         foreach ($results as $ro){
             
-            $MenuTable=$MenuTables.'<div class="card">
+            $MenuTable=$MenuTable.'<div class="card">
             <div class="myPare">
             <div class="item-5">
             <img src="./img/khyberpass_menustarter.jpg" class="img-fluid" style="height:70px;width:70px;border-radius:10px;" >
@@ -173,7 +173,7 @@ class AddMenucontroller extends Controller
         }
 
 
-        return $menuCard;
+        return $MenuTable;
     }
     function getCategories(){
         $results=DB::select('select * from  tblpcategory');

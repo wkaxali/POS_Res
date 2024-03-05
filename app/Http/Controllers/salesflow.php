@@ -65,7 +65,7 @@ class salesFlow extends Controller
         //update customer balance
         //frf
     }
-    public function insertInDetailedOrder($OrderDetails,$InvoiceID,$date){
+    public function insertInDetailedOrder($invoiceNumber,$OrderDetails,$InvoiceID,$date){
       foreach ($OrderDetails as $row){
 
       $DSID=DB::table('tblsaledetailedinvoice')->insertGetId(['InvoiceNumber'=>$InvoiceID,
@@ -84,7 +84,7 @@ class salesFlow extends Controller
       ]);
       }
       session(['OrderID' => $invoiceNumber]);
-      session(['OrderTime' => $dateNow]);
+      session(['OrderTime' => $date]);
       return "You order No is = ".$invoiceNumber;
       
 

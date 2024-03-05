@@ -80,7 +80,7 @@ class CUDproduct extends Controller
         
         }
 
-        public function insertstock()
+        public function insertstock($CO)
          {
             $obj=json_decode($CO);
             $StockID=$obj[0];

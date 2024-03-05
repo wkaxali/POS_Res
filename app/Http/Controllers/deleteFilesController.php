@@ -30,23 +30,23 @@ class deleteFilesController extends Controller
         //unlink('images\\72.jpg');
     }
     
-    function upload(Request $request)
-    {
-      $this->validate($request, [
-       'select_file'  => 'required|image|mimes:jpg,png,gif|max:2048'
-      ]);
+    // function upload(Request $request)
+    // {
+    //   $this->validate($request, [
+    //    'select_file'  => 'required|image|mimes:jpg,png,gif|max:2048'
+    //   ]);
 
-     $image = $request->file('select_file');
+    //  $image = $request->file('select_file');
 
-     $new_name = "$pid" . '.' . $image->getClientOriginalExtension();
+    //  $new_name = "$pid" . '.' . $image->getClientOriginalExtension();
 
-     $image->move(public_path('images'), $new_name);
-     $path = 'images\\'.$new_name;
+    //  $image->move(public_path('images'), $new_name);
+    //  $path = 'images\\'.$new_name;
   
-     $insertImagePath=DB::table("productdefination")->where('ProductID', $pid)
-     ->update(['image' => $path]);
-     //dd($insertImagePath);
+    //  $insertImagePath=DB::table("productdefination")->where('ProductID', $pid)
+    //  ->update(['image' => $path]);
+    //  //dd($insertImagePath);
 
-     return back()->with('success', $productName.' Uploaded Successfully at index '.$path)->with('path', $pid.".jpg");
-    }
+    //  return back()->with('success', $productName.' Uploaded Successfully at index '.$path)->with('path', $pid.".jpg");
+    // }
 }
