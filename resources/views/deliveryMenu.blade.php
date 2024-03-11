@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="sub_page" onload="getCategories()">
+<body class="sub_page" onload="getCategories();cookieToCartWriter()">
 
   <div class="hero_area">
     <div class="bg-box">

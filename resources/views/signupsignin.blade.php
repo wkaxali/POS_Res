@@ -75,6 +75,9 @@
 		button:focus {
 			outline: none;
 		}
+		button:hover{
+			color: #ffbe33;
+		}
 
 		button.ghost {
 			background-color: transparent;
@@ -187,7 +190,7 @@
 		.overlay {
 			background: #FF416C;
 			background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-			background: linear-gradient(to right, #fec73d, #fec73d);
+			background: linear-gradient(to right, #0a0a0a, #333);
 			background-repeat: no-repeat;
 			background-size: cover;
 			background-position: 0 0;

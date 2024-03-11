@@ -380,7 +380,8 @@ function getCategories() {
     xhttp.open("GET", "./getMenu/"+PCID, true);
     xhttp.send();
 }
- 
+
+//tick mark code goes here
  document.addEventListener('DOMContentLoaded', function() {
     var container = document.getElementById('menuItems');
 
@@ -388,18 +389,22 @@ function getCategories() {
         if (event.target.tagName === 'A') {
             var anchor = event.target;
             var currentContent = anchor.textContent;
-            
-            if (currentContent === '+') {
-                anchor.textContent = '✓'; // Replace with your tick mark character
-            } else {
-                anchor.textContent = '+';
+            if (currentContent === '✓') {
+                return 0;
             }
+            else {
+                if (currentContent === '+') {
+                    anchor.textContent = '✓';
+                } else {
+                    anchor.textContent = '+';
+                }
+            }
+
         }
     });
  });
 
 function addProduct(PID, pName, salePrice, companyName, purchasePrice) {
-    updateCartCounter()  
     var qty = 1;
     var table = document.getElementById("ProductSaleTable");
 
@@ -441,12 +446,83 @@ function addProduct(PID, pName, salePrice, companyName, purchasePrice) {
     } else {
         alert("Quantity Increased");
     }
+    cartReader()
+    updateCartCounter()  
+
 }
 function updateCartCounter() {
-    var cartCount = document.getElementById("cart-item-count").innerHTML
-    count = Number(cartCount)
-    count++
+   
+    var itemsinCart = document.getElementById('ProductSaleTable').rows
+    
+    count = Number(itemsinCart.length-1)
+    
     document.getElementById("cart-item-count").innerHTML = count 
+}
+
+function cartReader() {
+   
+    var table = document.getElementById('ProductSaleTable');
+    var rows = table.rows;
+    var cartObject = {}
+    for (var i = 1; i < rows.length; i++) {
+        cartObject[i] = String(rows[i].innerHTML)
+    }
+    newCookieToBeAdded = JSON.stringify(cartObject).replace(/;/g, '|')
+    newCookieToBeAddedEncoded = newCookieToBeAdded.replace(/=/g, '^')
+    cartDataInCookiesManager(newCookieToBeAddedEncoded)
+
+}
+
+function cartDataInCookiesManager(cartData) {
+
+    var cookieObject = {}
+    cookieObject.cartData = cartData
+    var updatedCookie = serializeCookie(cookieObject);
+    // console.log(updatedCookie)
+    document.cookie = updatedCookie;
+    var cookie = document.cookie
+    console.log(cookie)
+}
+
+function cookieToCartWriter() {
+    var cookie = document.cookie
+    var parsedCookie = parseCookie(cookie)
+    cartDataString = parsedCookie['cartData']
+    cartDataStringDecoded1 = cartDataString.replace(/\|/g, ';')
+    cartDataStringDecoded = cartDataStringDecoded1.replace(/\^/g, '=')
+    cartData = JSON.parse(cartDataStringDecoded)
+    var table = document.getElementById('ProductSaleTable');
+    console.log('hello')
+    for (var i = 1; i <= Object.getOwnPropertyNames(cartData).length; i++){
+        var newRow = document.createElement("tr")
+        newRow.innerHTML = cartData[i];
+        table.appendChild(newRow);
+        console.log(newRow) 
+    }
+    console.log(cartData)
+    calc()
+    updateCartCounter()  
+
+}
+
+function parseCookie(cookieString) {
+    var cookieObject = {};
+    cookieString.split(';').forEach(function(cookie) {
+        var parts = cookie.split('=');
+        var key = parts[0].trim();
+        var value = parts[1];
+        cookieObject[key] = value;
+    });
+    return cookieObject;
+}
+function serializeCookie(cookieObject) {
+    var cookieArray = [];
+    for (var key in cookieObject) {
+        if (cookieObject.hasOwnProperty(key)) {
+            cookieArray.push(key + '=' + cookieObject[key]);
+        }
+    }
+    return cookieArray.join('; ');
 }
 //  NEWCODEABOVENOTTOBECOMMITEDYET
 function getAllProducts() {
