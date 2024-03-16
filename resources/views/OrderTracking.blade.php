@@ -3,6 +3,8 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <meta name="viewport" content="width=device-width, height = device-height, initial-scale=1.0">
 <!-- CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -32,6 +34,9 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="/wa">Refer a Friend </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" onclick = "userlogout()">Logout </a>
                         </li>
                         
                       </ul>
@@ -131,13 +136,18 @@ integrity="sha512-7IoDEsIJGxz/gNyJY/0LRtS45wDSvPFXGPuC7Fo4YueWMNOmWKMAllEqo2Im3p
 crossorigin="anonymous"></script>
 <script>
 var bar = new ProgressBar.Circle(mainContainer, {
-strokeWidth: 9,
+strokeWidth: 10,
 easing: 'easeInOut',
 duration: 1400,
-color: '#FFAA82',
 trailColor: '#eee',
-trailWidth: 1,
-svgStyle: null
+trailWidth: 5,
+svgStyle: null,
+from: { color: '#FFF300 ' },
+    to: { color: '#007A0F' },
+    step: function(state, circle, attachment) {
+        circle.path.setAttribute('stroke', state.color);
+    },
+
 });
 
 bar.animate(0.10); // Number from 0.0 to 1.0
@@ -156,6 +166,35 @@ bar.animate(0.10); // Number from 0.0 to 1.0
         }
   </script>
   <script>
+    var customerID = '{{ Session::get("UserID") }}';
+
+function userlogout() {
+    var lg = customerID;
+    if (lg == "") {
+        alert("Not Logged in yet!")
+    }
+    else {
+        
+        
+        // console.log(lg)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(this.responseText);
+                location.reload(); 
+                
+            }
+        }
+        xhttp.open("POST", "./userLogout/", true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+    
+        var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+        xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                
+        xhttp.send(lg);
+    }
+}
+
         function getstatus() {
         orderID = document.getElementById("orderID").innerText;
 

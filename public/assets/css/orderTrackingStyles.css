@@ -1224,6 +1224,11 @@ a:focus {
     width: 70%;
     height: auto;
     }
+    #mainContainer svg {
+      width: 100%;
+      height: 100%;
+
+  }
     .label_alignment{
         display: flex;
   align-items: center;
@@ -1257,4 +1262,8 @@ a:focus {
 
   color: #ffbe33;
 
+}
+
+.myinner{
+  color: #000000;
 }

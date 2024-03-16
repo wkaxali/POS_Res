@@ -31,6 +31,9 @@
                         <li class="nav-item">
                           <a class="nav-link" href="/wa">Refer a Friend </a>
                         </li>
+                        <li class="nav-item">
+                          <a class="nav-link" onclick = "userlogout()">Logout </a>
+                        </li>
                         
                       </ul>
           
@@ -202,6 +205,34 @@
                             xhttp.send(UC);
 
                         }
+var customerID = '{{ Session::get("UserID") }}';
+
+function userlogout() {
+    var lg = customerID;
+    if (lg == "") {
+        alert("Not Logged in yet!")
+    }
+    else {
+        
+        
+        // console.log(lg)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(this.responseText);
+                location.reload(); 
+                
+            }
+        }
+        xhttp.open("POST", "./userLogout/", true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+    
+        var csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+        xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+                
+        xhttp.send(lg);
+    }
+}
     function getloggedinCustomerInfo() {
     
         var xhttp = new XMLHttpRequest();

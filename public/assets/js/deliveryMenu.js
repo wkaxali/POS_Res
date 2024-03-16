@@ -499,7 +499,6 @@ function cookieToCartWriter() {
         table.appendChild(newRow);
         console.log(newRow) 
     }
-    console.log(cartData)
     calc()
     updateCartCounter()  
 
@@ -524,7 +523,7 @@ function serializeCookie(cookieObject) {
     }
     return cookieArray.join('; ');
 }
-//  NEWCODEABOVENOTTOBECOMMITEDYET
+
 function getAllProducts() {
 
     document.getElementById("updateBtn").disabled = true;
@@ -617,6 +616,11 @@ function getCurrentCustomerInfo() {
 
     }
 }
+function clearCookie(cookieName) {
+    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+
 function userlogout() {
     var lg = customerID;
     if (lg == "") {
@@ -624,11 +628,12 @@ function userlogout() {
     }
     else {
         
-    
+        
         // console.log(lg)
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                clearCookie("cartData");
                 alert(this.responseText);
                 pageReload()
             }
@@ -1011,6 +1016,8 @@ function RemoveThisRow(r) {
     
     document.getElementById("ProductSaleTable").deleteRow(i);
     calc();
+    cartReader()
+    updateCartCounter()
 }
 
 
